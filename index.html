@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación Numérica | Crisis & Soluciones</title>
+
+    <!-- Core UI CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/css/coreui.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================================================================ -->
+    <!-- HEADER HERO CON GRADIENTE VIVO -->
+    <!-- ================================================================ -->
+    <header class="hero-header text-white text-center py-5">
+        <div class="container position-relative">
+            <span class="badge bg-warning text-dark mb-3 px-4 py-2 rounded-pill fs-6 shadow">
+                <i class="fas fa-calculator me-2"></i>Desafío Final de Métodos Numéricos
+            </span>
+            <h1 class="display-4 fw-bold mb-3">Modelado Matemático en Contexto de Crisis</h1>
+            <p class="lead mb-4 opacity-90 fs-5">Simulación numérica de abastecimiento, precios y conflicto social</p>
+
+            <!-- Gráfico conceptual decorativo -->
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-6">
+                    <div class="chart-container-header">
+                        <canvas id="contextChart"></canvas>
+                    </div>
+                    <p class="small mt-2 opacity-75">
+                        <i class="fas fa-chart-line me-1"></i>Evolución del Índice de Precios 2019-2026 (contexto
+                        referencial)
+                    </p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ================================================================ -->
+    <!-- NAVEGACIÓN STICKY -->
+    <!-- ================================================================ -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="#">
+                <i class="fas fa-project-diagram me-2"></i>Métodos Numéricos
+            </a>
+            <button class="navbar-toggler" type="button" data-coreui-toggle="collapse" data-coreui-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav gap-3">
+                    <li class="nav-item"><a class="nav-link active" href="#inicio"><i
+                                class="fas fa-home me-1"></i>Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#escenarios"><i
+                                class="fas fa-th me-1"></i>Escenarios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#metodos"><i
+                                class="fas fa-tools me-1"></i>Métodos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proceso"><i
+                                class="fas fa-project-diagram me-1"></i>Proceso</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ================================================================ -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ================================================================ -->
+    <main class="container my-5">
+
+        <!-- SECCIÓN 1: PRESENTACIÓN DEL PROBLEMA -->
+        <section id="inicio" class="mb-5">
+            <div class="row g-4">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="fw-bold mb-4">
+                        <i class="fas fa-chart-pie text-primary me-2"></i>Simulación Numérica en Contexto de Crisis
+                    </h2>
+                    <p class="lead text-muted mb-4">
+                        En el contexto actual se observan problemas relacionados con múltiples dimensiones de la crisis
+                        de abastecimiento en La Paz (2026). Este proyecto utiliza <strong>métodos numéricos</strong>
+                        para analizar y visualizar escenarios reales mediante modelado matemático riguroso.
+                    </p>
+
+                    <div class="row g-3 mt-4">
+                        <div class="col-md-4">
+                            <div class="p-4 rounded-4 bg-light shadow-sm hover-lift h-100">
+                                <div class="icon-circle bg-danger bg-opacity-10 text-danger mb-3 mx-auto">
+                                    <i class="fas fa-gas-pump fa-2x"></i>
+                                </div>
+                                <h6 class="fw-semibold">Abastecimiento</h6>
+                                <p class="small text-muted mb-0">Carburantes y distribución en crisis</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 rounded-4 bg-light shadow-sm hover-lift h-100">
+                                <div class="icon-circle bg-warning bg-opacity-10 text-warning mb-3 mx-auto">
+                                    <i class="fas fa-chart-line fa-2x"></i>
+                                </div>
+                                <h6 class="fw-semibold">Precios</h6>
+                                <p class="small text-muted mb-0">Incremento y fluctuación de alimentos</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="p-4 rounded-4 bg-light shadow-sm hover-lift h-100">
+                                <div class="icon-circle bg-info bg-opacity-10 text-info mb-3 mx-auto">
+                                    <i class="fas fa-bullhorn fa-2x"></i>
+                                </div>
+                                <h6 class="fw-semibold">Rumores</h6>
+                                <p class="small text-muted mb-0">Escasez y pánico social</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 rounded-4 bg-light shadow-sm hover-lift h-100">
+                                <div class="icon-circle bg-success bg-opacity-10 text-success mb-3 mx-auto">
+                                    <i class="fas fa-truck fa-2x"></i>
+                                </div>
+                                <h6 class="fw-semibold">Transporte</h6>
+                                <p class="small text-muted mb-0">Red de distribución y bloqueos</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 rounded-4 bg-light shadow-sm hover-lift h-100">
+                                <div class="icon-circle bg-primary bg-opacity-10 text-primary mb-3 mx-auto">
+                                    <i class="fas fa-wallet fa-2x"></i>
+                                </div>
+                                <h6 class="fw-semibold">Pérdida Adquisitiva</h6>
+                                <p class="small text-muted mb-0">Impacto en la economía familiar</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: OBJETIVO GENERAL -->
+        <section class="mb-5">
+            <div class="card border-0 shadow-lg overflow-hidden">
+                <div class="card-body p-5 text-center objetivo-bg">
+                    <i class="fas fa-bullseye fa-3x text-white mb-3 opacity-75"></i>
+                    <h3 class="fw-bold text-white mb-3">Objetivo General</h3>
+                    <p class="lead text-white mb-0">
+                        Aplicar <strong>métodos numéricos</strong> para modelar y simular problemas reales relacionados
+                        con
+                        <strong>abastecimiento</strong>, <strong>transporte</strong>, <strong>precios</strong>,
+                        <strong>reservas</strong> y <strong>dinámica social</strong> en el contexto de la crisis de La
+                        Paz 2026.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: ESCENARIOS (TODOS ACTIVOS CON COLORES VIBRANTES) -->
+        <section id="escenarios" class="mb-5">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold mb-2">
+                    <i class="fas fa-th-large me-2 text-primary"></i>Escenarios de Simulación
+                </h2>
+                <p class="text-muted">Selecciona un módulo para explorar el modelo matemático correspondiente</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+
+                <!-- Escenario A - ACTIVO -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="proyecto_metodos_AB_paginas/escenarios/escenario-a.html" class="text-decoration-none">
+                        <div class="scenario-card card h-100 border-0 shadow-lg state-active border-top-a">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-circle bg-info bg-opacity-10 text-info mb-3 mx-auto">
+                                    <i class="fas fa-truck-loading fa-2x"></i>
+                                </div>
+                                <h5 class="card-title fw-semibold mb-2">Escenario A</h5>
+                                <p class="card-text text-muted small mb-3">Optimización del abastecimiento y red de
+                                    transporte</p>
+                                <span class="badge bg-info text-white">Sistemas Lineales</span>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <div class="progress" style="height: 5px; border-radius: 10px;">
+                                    <div class="progress-bar bg-info" style="width: 100%"></div>
+                                </div>
+                                <small class="text-info fw-semibold"><i
+                                        class="fas fa-check-circle me-1"></i>Completado</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Escenario B - ACTIVO -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="proyecto_metodos_AB_paginas/escenarios/escenario-b.html" class="text-decoration-none">
+                        <div class="scenario-card card h-100 border-0 shadow-lg state-active border-top-b">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-circle bg-danger bg-opacity-10 text-danger mb-3 mx-auto">
+                                    <i class="fas fa-gas-pump fa-2x"></i>
+                                </div>
+                                <h5 class="card-title fw-semibold mb-2">Escenario B</h5>
+                                <p class="card-text text-muted small mb-3">Vaciado crítico de reservas en plantas de
+                                    carburantes</p>
+                                <span class="badge bg-danger text-white">Ecuaciones Diferenciales</span>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <div class="progress" style="height: 5px; border-radius: 10px;">
+                                    <div class="progress-bar bg-danger" style="width: 100%"></div>
+                                </div>
+                                <small class="text-danger fw-semibold"><i
+                                        class="fas fa-check-circle me-1"></i>Completado</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Escenario C - ACTIVO (Interpolación) -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="escenario_c/index.html" class="text-decoration-none">
+                        <div class="scenario-card card h-100 border-0 shadow-lg state-active border-top-c">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-circle bg-dark bg-opacity-10 text-dark mb-3 mx-auto">
+                                    <i class="fas fa-chart-line fa-2x"></i>
+                                </div>
+                                <h5 class="card-title fw-semibold mb-2">Escenario C</h5>
+                                <p class="card-text text-muted small mb-3">Desabastecimiento y curva continua de precios
+                                </p>
+                                <span class="badge bg-dark text-white">Interpolación</span>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <div class="progress" style="height: 5px; border-radius: 10px;">
+                                    <div class="progress-bar bg-dark" style="width: 100%"></div>
+                                </div>
+                                <small class="text-dark fw-semibold"><i
+                                        class="fas fa-check-circle me-1"></i>Completado</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Escenario D - ACTIVO (Integración) -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="escenario_d/index.html" class="text-decoration-none">
+                        <div class="scenario-card card h-100 border-0 shadow-lg state-active border-top-d">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-circle bg-success bg-opacity-10 text-success mb-3 mx-auto">
+                                    <i class="fas fa-coins fa-2x"></i>
+                                </div>
+                                <h5 class="card-title fw-semibold mb-2">Escenario D</h5>
+                                <p class="card-text text-muted small mb-3">Costo acumulado y pérdida del poder
+                                    adquisitivo</p>
+                                <span class="badge bg-success text-white">Integración Numérica</span>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <div class="progress" style="height: 5px; border-radius: 10px;">
+                                    <div class="progress-bar bg-success" style="width: 100%"></div>
+                                </div>
+                                <small class="text-success fw-semibold"><i
+                                        class="fas fa-check-circle me-1"></i>Completado</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Escenario E - ACTIVO (Raíces) -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="escenario_e/index.html" class="text-decoration-none">
+                        <div class="scenario-card card h-100 border-0 shadow-lg state-active border-top-e">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-circle bg-danger bg-opacity-10 text-danger mb-3 mx-auto">
+                                    <i class="fas fa-crosshairs fa-2x"></i>
+                                </div>
+                                <h5 class="card-title fw-semibold mb-2">Escenario E</h5>
+                                <p class="card-text text-muted small mb-3">Umbrales críticos de abastecimiento</p>
+                                <span class="badge bg-danger text-white">Raíces de Ecuaciones</span>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <div class="progress" style="height: 5px; border-radius: 10px;">
+                                    <div class="progress-bar bg-danger" style="width: 100%"></div>
+                                </div>
+                                <small class="text-danger fw-semibold"><i
+                                        class="fas fa-check-circle me-1"></i>Completado</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Escenario F - ACTIVO -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="escenario_f/index.html" class="text-decoration-none">
+                        <div class="scenario-card card h-100 border-0 shadow-lg state-active border-top-f">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-circle bg-warning bg-opacity-10 text-warning mb-3 mx-auto">
+                                    <i class="fas fa-broadcast-tower fa-2x"></i>
+                                </div>
+                                <h5 class="card-title fw-semibold mb-2">Escenario F</h5>
+                                <p class="card-text text-muted small mb-3">Rumores de desabastecimiento y pánico en la
+                                    red</p>
+                                <span class="badge bg-warning text-dark">Sistemas Mal Condicionados</span>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <div class="progress" style="height: 5px; border-radius: 10px;">
+                                    <div class="progress-bar bg-warning" style="width: 100%"></div>
+                                </div>
+                                <small class="text-warning fw-semibold"><i
+                                        class="fas fa-check-circle me-1"></i>Completado</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- Escenario G - ACTIVO -->
+                <div class="col-md-6 col-lg-3">
+                    <a href="escenario_g/index.html" class="text-decoration-none">
+                        <div class="scenario-card card h-100 border-0 shadow-lg state-active border-top-g">
+                            <div class="card-body text-center p-4">
+                                <div class="icon-circle bg-primary bg-opacity-10 text-primary mb-3 mx-auto">
+                                    <i class="fas fa-users fa-2x"></i>
+                                </div>
+                                <h5 class="card-title fw-semibold mb-2">Escenario G</h5>
+                                <p class="card-text text-muted small mb-3">Modelo de difusión de opinión o descontento
+                                    social</p>
+                                <span class="badge bg-primary text-white">EDOs & RK4</span>
+                            </div>
+                            <div class="card-footer bg-transparent border-0 pb-3">
+                                <div class="progress" style="height: 5px; border-radius: 10px;">
+                                    <div class="progress-bar bg-primary" style="width: 100%"></div>
+                                </div>
+                                <small class="text-primary fw-semibold"><i
+                                        class="fas fa-check-circle me-1"></i>Completado</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: TABLA DE MÉTODOS NUMÉRICOS -->
+        <section id="metodos" class="mb-5">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold mb-2"><i class="fas fa-tools me-2 text-primary"></i>Métodos Numéricos Aplicados</h2>
+                <p class="text-muted">Cada escenario utiliza técnicas matemáticas específicas</p>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle">
+                            <thead class="bg-gradient-primary text-white">
+                                <tr>
+                                    <th class="ps-4 py-3"><i class="fas fa-calculator me-2"></i>Método</th>
+                                    <th class="py-3"><i class="fas fa-flask me-2"></i>Aplicación</th>
+                                    <th class="py-3"><i class="fas fa-tag me-2"></i>Escenario</th>
+                                    <th class="text-center py-3 pe-4"><i class="fas fa-check-circle me-2"></i>Estado
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row-hover">
+                                    <td class="ps-4"><i class="fas fa-th me-2 text-info"></i><strong>Jacobi /
+                                            Gauss-Seidel</strong></td>
+                                    <td>Distribución de transporte y abastecimiento</td>
+                                    <td><span class="badge bg-info text-white">A</span></td>
+                                    <td class="text-center"><span class="badge bg-success"><i
+                                                class="fas fa-check me-1"></i>Activo</span></td>
+                                </tr>
+                                <tr class="table-row-hover">
+                                    <td class="ps-4"><i class="fas fa-layer-group me-2 text-warning"></i><strong>LU /
+                                            SOR</strong></td>
+                                    <td>Sistemas de abastecimiento</td>
+                                    <td><span class="badge bg-info text-white">A</span> <span
+                                            class="badge bg-warning text-dark">F</span></td>
+                                    <td class="text-center"><span class="badge bg-success"><i
+                                                class="fas fa-check me-1"></i>Activo</span></td>
+                                </tr>
+                                <tr class="table-row-hover">
+                                    <td class="ps-4"><i class="fas fa-chart-line me-2 text-dark"></i><strong>Lagrange /
+                                            Newton / Splines</strong></td>
+                                    <td>Curva de precios de alimentos</td>
+                                    <td><span class="badge bg-dark text-white">C</span></td>
+                                    <td class="text-center"><span class="badge bg-success"><i
+                                                class="fas fa-check me-1"></i>Activo</span></td>
+                                </tr>
+                                <tr class="table-row-hover">
+                                    <td class="ps-4"><i class="fas fa-chart-area me-2 text-success"></i><strong>Trapecio
+                                            / Simpson 1/3 / 3/8</strong></td>
+                                    <td>Costo acumulado mensual</td>
+                                    <td><span class="badge bg-success text-white">D</span></td>
+                                    <td class="text-center"><span class="badge bg-success"><i
+                                                class="fas fa-check me-1"></i>Activo</span></td>
+                                </tr>
+                                <tr class="table-row-hover">
+                                    <td class="ps-4"><i class="fas fa-bullseye me-2 text-danger"></i><strong>Bisección /
+                                            Newton-Raphson / Secante</strong></td>
+                                    <td>Punto crítico, umbrales, equilibrio</td>
+                                    <td><span class="badge bg-danger text-white">E</span></td>
+                                    <td class="text-center"><span class="badge bg-success"><i
+                                                class="fas fa-check me-1"></i>Activo</span></td>
+                                </tr>
+                                <tr class="table-row-hover">
+                                    <td class="ps-4"><i class="fas fa-wave-square me-2 text-primary"></i><strong>Euler /
+                                            Heun / RK4</strong></td>
+                                    <td>Reservas de carburantes y difusión social</td>
+                                    <td><span class="badge bg-danger text-white">B</span> <span
+                                            class="badge bg-primary text-white">G</span></td>
+                                    <td class="text-center"><span class="badge bg-success"><i
+                                                class="fas fa-check me-1"></i>Activo</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 5: DIAGRAMA DEL PROCESO -->
+        <section id="proceso" class="mb-5">
+            <div class="text-center mb-4">
+                <h2 class="fw-bold mb-2"><i class="fas fa-project-diagram me-2 text-primary"></i>Flujo del Proyecto</h2>
+                <p class="text-muted">De la crisis a la toma de decisiones</p>
+            </div>
+
+            <div class="card border-0 shadow-sm">
+                <div class="card-body p-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div
+                                class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+                                <!-- Paso 1 -->
+                                <div class="process-step text-center">
+                                    <div
+                                        class="step-icon bg-danger text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                        <i class="fas fa-exclamation-triangle fa-2x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold mb-1">Crisis Nacional</h6>
+                                    <p class="small text-muted mb-0">Contexto real</p>
+                                </div>
+                                <div class="d-none d-md-block text-muted"><i class="fas fa-arrow-right fa-2x"></i></div>
+                                <div class="d-md-none text-muted"><i class="fas fa-arrow-down fa-2x"></i></div>
+
+                                <!-- Paso 2 -->
+                                <div class="process-step text-center">
+                                    <div
+                                        class="step-icon bg-info text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                        <i class="fas fa-database fa-2x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold mb-1">Datos Reales</h6>
+                                    <p class="small text-muted mb-0">Recolección</p>
+                                </div>
+                                <div class="d-none d-md-block text-muted"><i class="fas fa-arrow-right fa-2x"></i></div>
+                                <div class="d-md-none text-muted"><i class="fas fa-arrow-down fa-2x"></i></div>
+
+                                <!-- Paso 3 -->
+                                <div class="process-step text-center">
+                                    <div
+                                        class="step-icon bg-warning text-dark rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                        <i class="fas fa-calculator fa-2x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold mb-1">Métodos Numéricos</h6>
+                                    <p class="small text-muted mb-0">Procesamiento</p>
+                                </div>
+                                <div class="d-none d-md-block text-muted"><i class="fas fa-arrow-right fa-2x"></i></div>
+                                <div class="d-md-none text-muted"><i class="fas fa-arrow-down fa-2x"></i></div>
+
+                                <!-- Paso 4 -->
+                                <div class="process-step text-center">
+                                    <div
+                                        class="step-icon bg-success text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                        <i class="fas fa-chart-bar fa-2x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold mb-1">Análisis</h6>
+                                    <p class="small text-muted mb-0">Interpretación</p>
+                                </div>
+                                <div class="d-none d-md-block text-muted"><i class="fas fa-arrow-right fa-2x"></i></div>
+                                <div class="d-md-none text-muted"><i class="fas fa-arrow-down fa-2x"></i></div>
+
+                                <!-- Paso 5 -->
+                                <div class="process-step text-center">
+                                    <div
+                                        class="step-icon bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-2">
+                                        <i class="fas fa-hand-pointer fa-2x"></i>
+                                    </div>
+                                    <h6 class="fw-semibold mb-1">Toma de Decisiones</h6>
+                                    <p class="small text-muted mb-0">Estrategias</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ================================================================ -->
+    <!-- FOOTER MEJORADO -->
+    <!-- ================================================================ -->
+    <footer class="bg-dark text-white py-5 mt-5">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-lg-3">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-project-diagram me-2 text-primary"></i>Métodos Numéricos
+                    </h5>
+                    <p class="text-white-50 small mb-0">
+                        Proyecto académico que aplica modelado matemático para comprender problemas reales
+                        en contexto de crisis. Enfoque analítico sin posicionamientos políticos.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-semibold mb-3 text-warning">Escenarios Activos</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="proyecto_metodos_AB_paginas/escenarios/escenario-a.html"
+                                class="text-white-50 hover-white text-decoration-none small">
+                                <i class="fas fa-chevron-right me-1 fa-xs"></i>Escenario A - Abastecimiento</a></li>
+                        <li class="mb-2"><a href="proyecto_metodos_AB_paginas/escenarios/escenario-b.html"
+                                class="text-white-50 hover-white text-decoration-none small">
+                                <i class="fas fa-chevron-right me-1 fa-xs"></i>Escenario B - Reservas</a></li>
+
+                        <li class="mb-2"><a href="escenario_c/index.html"
+                                class="text-white-50 hover-white text-decoration-none small"><i
+                                    class="fas fa-chevron-right me-1 fa-xs"></i>Escenario C - Interpolación</a></li>
+                        <li class="mb-2"><a href="escenario_d/index.html"
+                                class="text-white-50 hover-white text-decoration-none small"><i
+                                    class="fas fa-chevron-right me-1 fa-xs"></i>Escenario D - Integración</a></li>
+                        <li class="mb-2"><a href="escenario_e/index.html"
+                                class="text-white-50 hover-white text-decoration-none small"><i
+                                    class="fas fa-chevron-right me-1 fa-xs"></i>Escenario E - Raíces</a></li>
+                        <li class="mb-2"><a href="escenario_f/index.html"
+                                class="text-white-50 hover-white text-decoration-none small"><i
+                                    class="fas fa-chevron-right me-1 fa-xs"></i>Escenario F - Sist. Mal Cond.</a></li>
+                        <li class="mb-2"><a href="escenario_g/index.html"
+                                class="text-white-50 hover-white text-decoration-none small"><i
+                                    class="fas fa-chevron-right me-1 fa-xs"></i>Escenario G - EDOs & RK4</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-semibold mb-3 text-success">Métodos Implementados</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2 text-white-50 small"><i class="fas fa-check me-1 text-success"></i>Jacobi,
+                            Gauss-Seidel, LU, SOR, Gradiente Conjugado</li>
+                        <li class="mb-2 text-white-50 small"><i class="fas fa-check me-1 text-success"></i>Euler, Heun,
+                            Runge-Kutta 4</li>
+                        <li class="mb-2 text-white-50 small"><i class="fas fa-check me-1 text-success"></i>Lagrange,
+                            Newton, Splines Cúbicos</li>
+                        <li class="mb-2 text-white-50 small"><i class="fas fa-check me-1 text-success"></i>Trapecio,
+                            Simpson 1/3, Simpson 3/8</li>
+                        <li class="mb-2 text-white-50 small"><i class="fas fa-check me-1 text-success"></i>Bisección,
+                            Newton-Raphson, Secante</li>
+
+                        <li class="mb-2 text-white-50 small"><i class="fas fa-check me-1 text-success"></i>Sistemas Lineales, Número de condición, Perturbación de Datos</li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-4">
+                    <h6 class="fw-semibold mb-3 text-info">Recursos</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="https://github.com/OscarLuisLujan/Proyecto-Final" class="text-white-50 hover-white text-decoration-none small"><i
+                                    class="fab fa-github me-1"></i>Repositorio Git</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-top border-secondary pt-4 mt-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+                        <p class="small text-white-50 mb-0">
+                            <i class="fas fa-code me-1"></i>Proyecto Final de Métodos Numéricos © 2026
+                        </p>
+                    </div>
+                    <div class="col-md-6 text-center text-md-end">
+                        <p class="small text-white-50 mb-0">
+                            <i class="fas fa-graduation-cap me-1"></i>Simulación Académica • Enfoque matemático y
+                            analítico
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Core UI JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/js/coreui.bundle.min.js"></script>
+
+    <!-- Script para gráfico contextual -->
+    <script>
+        const ctx = document.getElementById('contextChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026'],
+                datasets: [{
+                    label: 'Índice de Precios (Base 100 = 2019)',
+                    data: [100, 115, 135, 162, 195, 235, 280, 330],
+                    borderColor: '#fff',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#ff9f1c',
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2,
+                    pointRadius: 6,
+                    pointHoverRadius: 10
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(255,255,255,0.95)',
+                        titleColor: '#2b050c',
+                        bodyColor: '#2b050c',
+                        borderColor: '#d91438',
+                        borderWidth: 1,
+                        callbacks: {
+                            label: (ctx) => `Índice: ${ctx.parsed.y} (${ctx.parsed.y > 200 ? '⚠️ Crisis' : 'Estable'})`
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { color: 'rgba(255,255,255,0.15)' },
+                        ticks: { color: 'rgba(255,255,255,0.9)', font: { weight: 'bold' } }
+                    },
+                    y: {
+                        grid: { color: 'rgba(255,255,255,0.15)' },
+                        ticks: { color: 'rgba(255,255,255,0.9)' },
+                        beginAtZero: false
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

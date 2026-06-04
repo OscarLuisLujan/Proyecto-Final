@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Escenario C: Interpolación de Precios | Métodos Numéricos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/css/coreui.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="hero-header text-white text-center py-5">
+        <div class="container">
+            <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fs-6">
+                <i class="fas fa-calculator me-2"></i>Escenario C Activo
+            </span>
+            <h1 class="display-4 fw-bold mb-3">Curva de Precios: Crisis de Abastecimiento en La Paz</h1>
+            <p class="lead opacity-90 fs-5">Análisis comparativo de productos básicos mediante interpolación numérica
+            </p>
+        </div>
+    </header>
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-primary" href="../index.html">
+                <i class="fas fa-arrow-left me-2"></i>Volver al Inicio
+            </a>
+            <button class="navbar-toggler" type="button" data-coreui-toggle="collapse" data-coreui-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav gap-3">
+                    <li class="nav-item"><a class="nav-link"
+                            href="../proyecto_metodos_AB_paginas/escenarios/escenario-a.html">Esc. A</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                            href="../proyecto_metodos_AB_paginas/escenarios/escenario-b.html">Esc. B</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="#">Esc. C</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../escenario_d/index.html">Esc. D</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../escenario_e/index.html">Esc. E</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../escenario_f/index.html">Esc. F</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../escenario_g/index.html">Esc. G</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container my-5">
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 1: EXPLICACIÓN DEL PROBLEMA REAL -->
+        <!-- ============================================================ -->
+        <section class="mb-5" id="seccion1">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-gradient-primary text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-white text-primary me-3 px-3 py-2 fs-6">Sección 1</span>
+                        <h3 class="fw-bold mb-0"><i class="fas fa-newspaper me-2"></i>Explicación del Problema Real</h3>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <h4 class="fw-bold text-primary mb-3">
+                                <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                                Crisis de Abastecimiento en La Paz — Mayo/Junio 2026
+                            </h4>
+                            <p class="mb-3">
+                                Durante mayo y junio de 2026, Bolivia enfrentó una <strong>grave crisis de
+                                    desabastecimiento
+                                    de alimentos</strong> en las ciudades de La Paz y El Alto, provocada por bloqueos de
+                                carreteras,
+                                protestas sociales y escasez de combustible. Los principales accesos a la ciudad
+                                quedaron
+                                completamente bloqueados, impidiendo el ingreso normal de alimentos desde otras regiones
+                                del país.
+                            </p>
+                            <p class="mb-3">
+                                Según reportes del <strong>Programa Mundial de Alimentos (WFP)</strong>, aproximadamente
+                                <span class="badge bg-danger fs-6">2 millones de personas</span> enfrentaron acceso
+                                reducido
+                                a alimentos y bienes esenciales. Los precios de productos básicos se dispararon de forma
+                                alarmante:
+                            </p>
+                            <div class="table-responsive mb-3">
+                                <table class="table table-sm table-bordered bg-light">
+                                    <thead class="table-danger">
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Precio Normal</th>
+                                            <th>Precio en Crisis</th>
+                                            <th>Incremento</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>Pollo</strong></td>
+                                            <td>Bs 15-18/kg</td>
+                                            <td class="text-danger fw-bold">Bs 31/kg</td>
+                                            <td>+72%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Carne de Res</strong></td>
+                                            <td>Bs 70-80/kg</td>
+                                            <td class="text-danger fw-bold">Bs 120+/kg</td>
+                                            <td>+50%</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tomate</strong></td>
+                                            <td>Bs 3/libra</td>
+                                            <td class="text-danger fw-bold">Bs 15/libra</td>
+                                            <td>+400%</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p class="mb-0">
+                                El <strong>Índice de Precios al Consumidor (IPC)</strong> de Bolivia aumentó
+                                <span class="fw-bold text-danger">2.13% en mayo 2026</span>, siendo La Paz la región
+                                con mayor incremento regional del <span class="fw-bold text-danger">5.41%</span>.
+                                Esta situación representa un escenario real perfecto para aplicar métodos de
+                                interpolación
+                                numérica y estimar precios en días sin registro oficial.
+                            </p>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="card bg-gradient-light border-0 h-100">
+                                <div class="card-body">
+                                    <h5 class="fw-bold text-primary mb-3">
+                                        <i class="fas fa-database me-2"></i>Datos Clave
+                                    </h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item bg-transparent">
+                                            <i class="fas fa-calendar text-danger me-2"></i>
+                                            <strong>Período:</strong> Mayo-Junio 2026
+                                        </li>
+                                        <li class="list-group-item bg-transparent">
+                                            <i class="fas fa-users text-warning me-2"></i>
+                                            <strong>Afectados:</strong> 2 millones
+                                        </li>
+                                        <li class="list-group-item bg-transparent">
+                                            <i class="fas fa-percentage text-success me-2"></i>
+                                            <strong>IPC Mayo:</strong> +2.13% nacional
+                                        </li>
+                                        <li class="list-group-item bg-transparent">
+                                            <i class="fas fa-map-marker-alt text-info me-2"></i>
+                                            <strong>La Paz:</strong> +5.41% regional
+                                        </li>
+                                        <li class="list-group-item bg-transparent">
+                                            <i class="fas fa-drumstick-bite text-danger me-2"></i>
+                                            <strong>Pollo:</strong> Hasta Bs 31/kg
+                                        </li>
+                                        <li class="list-group-item bg-transparent">
+                                            <i class="fas fa-road text-dark me-2"></i>
+                                            <strong>Bloqueos:</strong> Accesos cerrados
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 2: FORMULARIO DE INGRESO DE DATOS (ANCHO COMPLETO) -->
+        <!-- ============================================================ -->
+        <section class="mb-5" id="seccion2">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-gradient-primary text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-white text-primary me-3 px-3 py-2 fs-6">Sección 2</span>
+                        <h3 class="fw-bold mb-0"><i class="fas fa-table me-2"></i>Formulario de Ingreso de Datos</h3>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0 align-middle text-center" id="tablaDatos">
+                            <thead class="table-light">
+                                <tr>
+                                    <th class="py-3 bg-light">Día (x)</th>
+                                    <th class="py-3 bg-light"><i
+                                            class="fas fa-drumstick-bite text-danger me-1"></i>Carne (Bs/kg)</th>
+                                    <th class="py-3 bg-light"><i class="fas fa-apple-alt text-warning me-1"></i>Papa
+                                        (Bs/kg)</th>
+                                    <th class="py-3 bg-light"><i class="fas fa-egg text-info me-1"></i>Pollo (Bs/kg)
+                                    </th>
+                                    <th class="py-3 bg-light"><i class="fas fa-wheat-alt text-success me-1"></i>Arroz
+                                        (Bs/kg)</th>
+                                    <th class="py-3 bg-light"><i class="fas fa-trash-alt text-danger"></i></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Generado dinámicamente por JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer bg-light d-flex justify-content-between align-items-center">
+                    <button class="btn btn-outline-primary btn-sm" id="btnAgregarFila">
+                        <i class="fas fa-plus me-1"></i> Agregar Día
+                    </button>
+                    <small class="text-muted"><i class="fas fa-info-circle me-1"></i>Mínimo 2 puntos requeridos para
+                        interpolación</small>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SECCIÓN 3: BOTONES DE EJECUCIÓN (DEBAJO, NO AL LADO) -->
+        <!-- ============================================================ -->
+        <section class="mb-5" id="seccion3">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-gradient-primary text-white py-3">
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-white text-primary me-3 px-3 py-2 fs-6">Sección 3</span>
+                        <h3 class="fw-bold mb-0"><i class="fas fa-cogs me-2"></i>Configuración y Ejecución</h3>
+                    </div>
+                </div>
+                <div class="card-body p-4">
+                    <!-- Fila 1: Día y Producto -->
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold fs-5">
+                                <i class="fas fa-calendar-day text-primary me-2"></i>¿Qué día deseas estimar?
+                            </label>
+                            <div class="input-group input-group-lg">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="fas fa-hashtag"></i>
+                                </span>
+                                <input type="number" id="diaEstimacion" class="form-control form-control-lg" value="12"
+                                    placeholder="Ej: 12" min="1" max="30">
+                            </div>
+                            <div class="form-text">Día dentro del rango de análisis [1, 30]</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-semibold fs-5">
+                                <i class="fas fa-shopping-basket text-primary me-2"></i>Producto a Analizar
+                            </label>
+                            <select id="productoSeleccionado" class="form-select form-select-lg">
+                                <option value="carne"><i class="fas fa-drumstick-bite"></i> Carne de Res</option>
+                                <option value="papa">🥔 Papa</option>
+                                <option value="pollo">🍗 Pollo</option>
+                                <option value="arroz">🍚 Arroz</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Fila 2: Botones -->
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="d-grid gap-3 d-md-flex justify-content-center">
+                                <button class="btn btn-primary btn-lg fw-bold shadow px-5" id="btnEjecutar">
+                                    <i class="fas fa-calculator me-2"></i>Ejecutar Interpolación
+                                </button>
+                                <button class="btn btn-outline-secondary btn-lg px-5" id="btnRestaurar">
+                                    <i class="fas fa-undo me-2"></i>Restaurar Datos por Defecto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Indicador de carga -->
+                    <div id="loadingIndicator" class="mt-4 d-none">
+                        <div class="progress" style="height: 10px; border-radius: 10px;">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                role="progressbar" style="width: 0%" id="progressBar"></div>
+                        </div>
+                        <p class="text-center text-muted small mt-2">
+                            <i class="fas fa-spinner fa-spin me-2"></i>Calculando métodos numéricos...
+                        </p>
+                    </div>
+                    <!-- Mensaje de estado -->
+                    <div id="mensajeEstado" class="alert mt-3 py-2 small d-none"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- TABS DE MÉTODOS NUMÉRICOS -->
+        <!-- ============================================================ -->
+        <section class="mb-5" id="seccion4">
+            <div class="card border-0 shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <ul class="nav nav-tabs card-header-tabs nav-fill" id="metodosTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active fs-5 fw-semibold" id="lagrange-tab" data-coreui-toggle="tab"
+                                data-coreui-target="#lagrange" type="button" role="tab">
+                                <i class="fas fa-square-root-alt me-2"></i>Método de Lagrange
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link fs-5 fw-semibold" id="newton-tab" data-coreui-toggle="tab"
+                                data-coreui-target="#newton" type="button" role="tab">
+                                <i class="fas fa-superscript me-2"></i>Método de Newton
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link fs-5 fw-semibold" id="spline-tab" data-coreui-toggle="tab"
+                                data-coreui-target="#spline" type="button" role="tab">
+                                <i class="fas fa-bezier-curve me-2"></i>Splines Cúbicos
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="metodosTabsContent">
+                        <!-- TAB LAGRANGE -->
+                        <div class="tab-pane fade show active" id="lagrange" role="tabpanel">
+                            <div id="contenido-lagrange">
+                                <div class="text-center py-5 text-muted">
+                                    <i class="fas fa-arrow-up fs-1 mb-3 d-block"></i>
+                                    <p>Configure los datos y haga clic en <strong>"Ejecutar Interpolación"</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TAB NEWTON -->
+                        <div class="tab-pane fade" id="newton" role="tabpanel">
+                            <div id="contenido-newton">
+                                <div class="text-center py-5 text-muted">
+                                    <i class="fas fa-arrow-up fs-1 mb-3 d-block"></i>
+                                    <p>Configure los datos y haga clic en <strong>"Ejecutar Interpolación"</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- TAB SPLINE -->
+                        <div class="tab-pane fade" id="spline" role="tabpanel">
+                            <div id="contenido-spline">
+                                <div class="text-center py-5 text-muted">
+                                    <i class="fas fa-arrow-up fs-1 mb-3 d-block"></i>
+                                    <p>Configure los datos y haga clic en <strong>"Ejecutar Interpolación"</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container text-center">
+            <p class="mb-2 fw-semibold fs-5">Módulo C: Interpolación Numérica</p>
+            <div class="d-flex justify-content-center gap-4 mb-3">
+                <a href="../index.html" class="text-white-50 text-decoration-none hover-white">
+                    <i class="fas fa-home me-1"></i>Inicio
+                </a>
+                <a href="../escenario_d/index.html" class="text-white-50 text-decoration-none hover-white">
+                    <i class="fas fa-arrow-right me-1"></i>Siguiente: Integración Numérica
+                </a>
+            </div>
+            <p class="small text-white-50 mb-0">© 2026 Métodos Numéricos • Proyecto Final</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/js/coreui.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

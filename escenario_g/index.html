@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escenario E: Raíces de Ecuaciones | Métodos Numéricos</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/css/coreui.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../escenario_e/style.css">
+</head>
+
+<body>
+
+  <!-- ================================================================ -->
+  <!-- HEADER HERO -->
+  <!-- ================================================================ -->
+  <header class="hero-header text-white text-center py-5">
+    <div class="container">
+      <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fs-6">
+        <i class="fas fa-calculator me-2"></i>Escenario G Activo
+      </span>
+      <h1 class="display-4 fw-bold mb-3">Modelo de difusión de opinión o descontento social</h1>
+      <p class="lead opacity-90 fs-5">¿Cómo se propaga el apoyo a bloqueos y marchas? ¿Puede el diálogo detener la escalada?</p>
+    </div>
+  </header>
+    
+
+  <!-- ================================================================ -->
+  <!-- NAVBAR -->
+  <!-- ================================================================ -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="../index.html">
+        <i class="fas fa-arrow-left me-2"></i>Volver al Inicio
+      </a>
+      <button class="navbar-toggler" type="button" data-coreui-toggle="collapse" data-coreui-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item"><a class="nav-link"
+              href="../proyecto_metodos_AB_paginas/escenarios/escenario-a.html">Esc. A</a></li>
+          <li class="nav-item"><a class="nav-link"
+              href="../proyecto_metodos_AB_paginas/escenarios/escenario-b.html">Esc. B</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_c/index.html">Esc. C</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_d/index.html">Esc. D</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_e/index.html">Esc. E</a></li>
+          <li class="nav-item"><a class="nav-link active" href="../escenario_f/index.html">Esc. F</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_g/index.html">Esc. G</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+
+    <div class="container mt-5">
+        <!-- Contexto del Modelo -->
+        <div class="story-box">
+            <h5>📖 El Modelo de Dinámica Social</h5>
+            <p>En La Paz, durante períodos de crisis, observamos cómo ciudadanos neutrales pueden unirse a manifestaciones, bloqueos y marchas. Este modelo matemático describe cómo evoluciona la opinión pública a través de tres grupos poblacionales que interactúan entre sí:</p>
+            <ul>
+                <li><strong>Ciudadanos Neutrales (N):</strong> Personas que aún no se han definido, observan desde casa.</li>
+                <li><strong>Manifestantes Activos (M):</strong> Personas que participan en bloqueos, marchas y protestas.</li>
+                <li><strong>Mediadores (D):</strong> Actores sociales, líderes comunitarios o instituciones que buscan el diálogo.</li>
+            </ul>
+            <p>El modelo muestra cómo el <strong>contagio social</strong> (vecinos que ven a otros marchar), el <strong>desgaste natural</strong> (cansancio, necesidad de trabajar) y la <strong>mediación efectiva</strong> (diálogo que devuelve personas a la neutralidad) determinan si el conflicto se estabiliza o se masifica.</p>
+        </div>
+
+        <!-- Ecuaciones del Modelo -->
+        <div class="card">
+            <div class="card-header">🧮 Sistema de Ecuaciones Diferenciales</div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Modelo Matemático:</h6>
+                        <div class="equation-box">
+                            <p><strong>dN/dt = -a·N·M + b·D</strong></p>
+                            <p class="small text-muted">Los neutrales disminuyen por influencia de manifestantes (-a·N·M) y aumentan cuando los mediadores logran devolver personas a la neutralidad (+b·D)</p>
+                        </div>
+                        <div class="equation-box">
+                            <p><strong>dM/dt = a·N·M - c·M·D</strong></p>
+                            <p class="small text-muted">Los manifestantes aumentan por contagio social (+a·N·M) y disminuyen cuando los mediadores logran persuadirlos (-c·M·D)</p>
+                        </div>
+                        <div class="equation-box">
+                            <p><strong>dD/dt = k·M - r·D</strong></p>
+                            <p class="small text-muted">Los mediadores aumentan proporcionalmente al conflicto (+k·M, reacción institucional) y disminuyen por desgaste natural (-r·D)</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Significado de los Parámetros:</h6>
+                        <table class="table table-sm">
+                            <thead class="table-light">
+                                <tr><th>Parámetro</th><th>Significado</th><th>Efecto</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr><td><strong>a</strong></td><td>Tasa de contagio/influencia</td><td>Qué tan rápido los neutrales se unen a marchas</td></tr>
+                                <tr><td><strong>b</strong></td><td>Tasa de retorno a neutralidad</td><td>Efectividad de mediadores para desactivar protestas</td></tr>
+                                <tr><td><strong>c</strong></td><td>Efectividad del diálogo</td><td>Cuánto persuade el diálogo a los manifestantes</td></tr>
+                                <tr><td><strong>k</strong></td><td>Reacción institucional</td><td>Cuántos mediadores aparecen cuando hay conflicto</td></tr>
+                                <tr><td><strong>r</strong></td><td>Desgaste de mediadores</td><td>Cansancio o pérdida de credibilidad de mediadores</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Control -->
+        <div class="card">
+            <div class="card-header">⚙️ Configura tu Simulación</div>
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Condiciones Iniciales (Población en miles):</label>
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="small">Neutrales (N₀)</label>
+                                <input type="number" class="form-control" id="N0" value="900" step="10">
+                            </div>
+                            <div class="col-4">
+                                <label class="small">Manifestantes (M₀)</label>
+                                <input type="number" class="form-control" id="M0" value="50" step="5">
+                            </div>
+                            <div class="col-4">
+                                <label class="small">Mediadores (D₀)</label>
+                                <input type="number" class="form-control" id="D0" value="50" step="5">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Parámetros del Modelo:</label>
+                        <div class="row">
+                            <div class="col-6">
+                                <label class="small">Tasa de contagio (a)</label>
+                                <input type="number" class="form-control" id="param_a" value="0.002" step="0.0001">
+                            </div>
+                            <div class="col-6">
+                                <label class="small">Retorno a neutralidad (b)</label>
+                                <input type="number" class="form-control" id="param_b" value="0.1" step="0.01">
+                            </div>
+                            <div class="col-6">
+                                <label class="small">Efectividad diálogo (c)</label>
+                                <input type="number" class="form-control" id="param_c" value="0.005" step="0.001">
+                            </div>
+                            <div class="col-6">
+                                <label class="small">Reacción institucional (k)</label>
+                                <input type="number" class="form-control" id="param_k" value="0.2" step="0.01">
+                            </div>
+                            <div class="col-6">
+                                <label class="small">Desgaste mediadores (r)</label>
+                                <input type="number" class="form-control" id="param_r" value="0.05" step="0.01">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Tiempo de simulación (días):</label>
+                        <input type="number" class="form-control" id="tiempoMax" value="60" step="5">
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Paso de tiempo (dt):</label>
+                        <select class="form-select" id="dt">
+                            <option value="0.1">0.1 días (Alta precisión)</option>
+                            <option value="0.5" selected>0.5 días (Balanceado)</option>
+                            <option value="1.0">1.0 días (Rápido)</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">Escenarios predefinidos:</label>
+                        <select class="form-select" id="escenarioPreset" onchange="cargarEscenario()">
+                            <option value="">-- Seleccionar --</option>
+                            <option value="estable">🟢 Conflicto estabilizado (Diálogo efectivo)</option>
+                            <option value="escalada">🟡 Escalada moderada</option>
+                            <option value="masificacion">🔴 Masificación del conflicto</option>
+                            <option value="sin_mediadores">⚫ Sin mediadores (Caos)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-simular btn-lg" onclick="ejecutarSimulacion()">📊 Simular Evolución Social</button>
+                </div>
+
+                <!-- Detalles Técnicos -->
+                <div class="mt-4">
+                    <button class="btn btn-outline-secondary btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#detallesTecnicos">
+                        🔬 Ver Detalles Técnicos (Métodos Numéricos)
+                    </button>
+                    <div class="collapse mt-2" id="detallesTecnicos">
+                        <div class="technical-details">
+                            <h6>Métodos de Resolución de EDOs:</h6>
+                            <p><strong>Método de Heun (Predictor-Corrector):</strong></p>
+                            <ol class="small">
+                                <li>Predictor: ỹ(t+dt) = y(t) + dt·f(t, y(t))</li>
+                                <li>Corrector: y(t+dt) = y(t) + (dt/2)·[f(t, y(t)) + f(t+dt, ỹ(t+dt))]</li>
+                            </ol>
+                            <p><strong>Método de Runge-Kutta de 4to Orden (RK4):</strong></p>
+                            <ol class="small">
+                                <li>k₁ = f(t, y)</li>
+                                <li>k₂ = f(t + dt/2, y + dt·k₁/2)</li>
+                                <li>k₃ = f(t + dt/2, y + dt·k₂/2)</li>
+                                <li>k₄ = f(t + dt, y + dt·k₃)</li>
+                                <li>y(t+dt) = y(t) + (dt/6)·(k₁ + 2k₂ + 2k₃ + k₄)</li>
+                            </ol>
+                            <p class="small text-muted">RK4 es más preciso pero requiere más cálculos. Heun es más rápido pero menos preciso.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="card" id="resultadosCard" style="display:none;">
+            <div class="card-header">📈 Resultados de la Simulación</div>
+            <div class="card-body">
+                
+                <!-- Semáforo de Estado Social -->
+                <div class="alert text-center mb-4" id="semaforoSocial">
+                    <h4 id="textoSemaforo" class="fw-bold mb-0"></h4>
+                    <p class="mb-0 small" id="subtextoSemaforo"></p>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h6 class="fw-bold">Evolución Temporal (Método RK4)</h6>
+                        <canvas id="graficoRK4"></canvas>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="fw-bold">Comparación de Métodos (Heun vs RK4)</h6>
+                        <canvas id="graficoComparacion"></canvas>
+                    </div>
+                </div>
+
+                <!-- Tabla de Valores -->
+                <div class="mb-4">
+                    <h6 class="fw-bold">📋 Tabla de Evolución (Primeros 20 días)</h6>
+                    <div style="max-height: 400px; overflow-y: auto;">
+                        <table class="table table-sm table-striped table-bordered">
+                            <thead class="table-dark sticky-top">
+                                <tr>
+                                    <th>Día</th>
+                                    <th>Neutrales (N)</th>
+                                    <th>Manifestantes (M)</th>
+                                    <th>Mediadores (D)</th>
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaEvolucion"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Apartado de Análisis y Preguntas -->
+                <div class="preguntas-analisis" id="apartadoPreguntas">
+                    <h4 class="fw-bold mb-4 text-center">📋 Análisis del Escenario - Respuestas a las Preguntas Clave</h4>
+                    <div id="respuestasPreguntas">
+                        <!-- Se llena dinámicamente -->
+                    </div>
+                </div>
+
+                <!-- Estadísticas Finales -->
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h5 class="fw-bold text-primary">📊 Estadísticas del Período Simulado</h5>
+                    <div class="row" id="estadisticasFinales">
+                        <!-- Se llena con JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Explicación del Algoritmo -->
+        <div class="card">
+            <div class="card-header">🧠 ¿Cómo funciona este modelo?</div>
+            <div class="card-body">
+                <p><strong>Para el ciudadano:</strong> Imagina que el conflicto social es como una enfermedad que se contagia. Cuando ves a muchos vecinos marchando, es más probable que te unas (contagio). Pero si hay líderes comunitarios dialogando (mediadores), pueden convencerte de volver a casa. El modelo calcula día a día cuántas personas están en cada grupo.</p>
+                <p><strong>Para el evaluador (Método Numérico):</strong> Se resuelve el sistema de EDOs no lineales acopladas usando dos métodos: <strong>Heun</strong> (predictor-corrector de 2do orden) y <strong>RK4</strong> (Runge-Kutta de 4to orden). Se comparan ambas soluciones para evaluar precisión. El sistema se analiza buscando puntos de equilibrio donde dN/dt ≈ dM/dt ≈ dD/dt ≈ 0, lo que indica estabilización del conflicto.</p>
+            </div>
+        </div>
+
+    </div>
+    <footer class="bg-dark text-white py-4 mt-5">
+      <div class="container text-center">
+        <p class="mb-2 fw-semibold fs-5">Módulo G: Modelado de Conflictos Sociales</p>
+        <div class="d-flex justify-content-center gap-4 mb-3">
+          <a href="../index.html" class="text-white-50 text-decoration-none hover-white">
+            <i class="fas fa-home me-2"></i>Inicio
+          </a>
+          <a href="../index.html" class="text-white-50 text-decoration-none hover-white">
+            <i class="fas fa-star me-1"></i> Gracias por visitar el Escenario G
+          </a>
+        </div>
+        <p class="small text-white-50 mb-0">© 2026 Métodos Numéricos • Proyecto Final</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript personalizado -->
+    <script src="script.js"></script>
+</body>
+</html>

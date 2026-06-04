@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escenario A</title>
+  <link rel="stylesheet" href="../css/estilos.css" />
+  <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/css/coreui.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../escenario_c/style.css">
+</head>
+
+<body>
+  <header class="hero-header text-white text-center py-5">
+    <div class="container">
+      <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fs-6">
+        <i class="fas fa-calculator me-2"></i>Escenario A Activo
+      </span>
+      <h1 class="display-4 fw-bold mb-3">Optimización del abastecimiento y red de transporte</h1>
+      <p class="t-p lead opacity-90 fs-5">
+        Simulación de distribución de productos básicos hacia zonas de consumo
+        mediante sistemas lineales y métodos numéricos iterativos y directos.
+      </p>
+    </div>
+  </header>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="../index.html">
+        <i class="fas fa-arrow-left me-2"></i>Volver al Inicio
+      </a>
+      <button class="navbar-toggler" type="button" data-coreui-toggle="collapse" data-coreui-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item"><a class="nav-link active" href="../escenarios/escenario-a.html">Esc. A</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenarios/escenario-b.html">Esc. B</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_c/index.html">Esc. C</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_d/index.html">Esc. D</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_e/index.html">Esc. E</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_f/index.html">Esc. F</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_g/index.html">Esc. G</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <main>
+      <section class="card">
+        <span class="badge1">Escenario A | Sistemas lineales</span>
+        <h2 class="t-h2">Optimización del abastecimiento y red de transporte</h2>
+        <p class="t-p">
+          Este módulo simula la distribución de productos básicos hacia tres
+          zonas de consumo: <strong>Zona Centro - San Pedro</strong>,
+          <strong>Zona Sur - Obrajes</strong> y
+          <strong>Zona Norte - Ceja</strong>. El sistema se escribe como
+          <strong>Ax = b</strong>. La matriz A representa relaciones logísticas
+          simplificadas; b es la demanda del producto; x es la distribución
+          calculada.
+        </p>
+        <p class="t-p">
+          La simulación permite modificar coeficientes de la matriz, aumentar la
+          demanda por bloqueo y comparar el comportamiento de métodos iterativos
+          y directos.
+        </p>
+        <div class="method-box">
+          <h3 class="t-h3">Métodos obligatorios implementados</h3>
+          <div class="tags">
+            <span>Jacobi</span><span>Gauss-Seidel</span><span>SOR</span
+            ><span>LU</span><span>Gradiente Conjugado</span>
+          </div>
+        </div>
+        <div class="note">
+          <p class="t-p">
+            <strong>Datos de contexto:</strong> huevo Bs 23-33 antes y Bs 60-65 en
+            crisis; pollo entero Bs 50-55 antes y Bs 100-125 en crisis; papa Bs
+            40-45 por arroba; aceite bidón amarillo Bs 95 antes y aproximadamente
+            Bs 115 durante la crisis. Estos valores contextualizan el modelo
+            académico.
+          </p>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="t-h2">Formulario de cálculo</h2>
+        <div class="form-grid">
+          <label>Producto<select id="productoA"></select></label
+          ><label
+            >Método<select id="metodoA">
+              <option value="jacobi">Jacobi</option>
+              <option value="gaussSeidel">Gauss-Seidel</option>
+              <option value="sor">SOR</option>
+              <option value="lu">LU</option>
+              <option value="gradienteConjugado">Gradiente Conjugado</option>
+            </select></label
+          ><label
+            >Tolerancia<input
+              id="tolA"
+              type="number"
+              value="0.0001"
+              step="0.0001" /></label
+          ><label
+            >Máx. iteraciones<input
+              id="maxIterA"
+              type="number"
+              value="25" /></label
+          ><label
+            >Factor ω para SOR<input
+              id="omegaA"
+              type="number"
+              value="1.15"
+              step="0.05" /></label
+          ><label
+            >Aumento por bloqueo (%)<input
+              id="aumentoA"
+              type="number"
+              value="15"
+          /></label>
+        </div>
+        <div class="button-row">
+          <button onclick="calcularEscenarioA(false)">Calcular normal</button
+          ><button onclick="calcularEscenarioA(true)">
+            Simular bloqueo/aumento</button
+          ><button onclick="restaurarEscenarioA()">Restaurar datos</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="t-h2">Explicación de los datos del formulario</h2>
+        <div class="two-col">
+          <div class="info">
+            <strong>Producto</strong>
+            <p class="t-p">
+              Define el producto que se distribuye. Cada producto tiene una
+              demanda base diferente para San Pedro, Obrajes y Ceja.
+            </p>
+          </div>
+          <div class="info">
+            <strong>Método</strong>
+            <p class="t-p">
+              Permite elegir Jacobi, Gauss-Seidel, SOR, LU o Gradiente
+              Conjugado. Los primeros, SOR y Gradiente Conjugado son iterativos;
+              LU es directo.
+            </p>
+          </div>
+          <div class="info">
+            <strong>Tolerancia</strong>
+            <p class="t-p">
+              Es el error mínimo para detener un método iterativo. En LU no se
+              usa porque LU resuelve directamente.
+            </p>
+          </div>
+          <div class="info">
+            <strong>Máx. iteraciones</strong>
+            <p class="t-p">
+              Es el límite de seguridad para detener el cálculo si el método no
+              alcanza la tolerancia.
+            </p>
+          </div>
+          <div class="info">
+            <strong>Factor ω para SOR</strong>
+            <p class="t-p">
+              Solo se usa en SOR. Permite relajar o acelerar el avance del
+              método.
+            </p>
+          </div>
+          <div class="info">
+            <strong>Aumento por bloqueo</strong>
+            <p class="t-p">
+              Representa incremento de demanda por rutas bloqueadas o
+              abastecimiento concentrado.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="t-h2">Interpretación de la matriz y del vector demanda</h2>
+        <div class="two-col">
+          <div class="info">
+            <strong>Matriz A</strong>
+            <p class="t-p">
+              Cada fila representa una ecuación del sistema y cada columna
+              representa una zona. Las columnas son x1 = San Pedro, x2 = Obrajes
+              y x3 = Ceja. Los coeficientes son editables.
+            </p>
+          </div>
+          <div class="info">
+            <strong>Vector demanda b</strong>
+            <p class="t-p">
+              El vector b representa la demanda requerida por cada zona. Al
+              resolver Ax=b se obtiene x, que indica cuánto debería enviarse
+              hacia cada zona según el modelo.
+            </p>
+          </div>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="t-h2">Matriz A editable</h2>
+        <p class="small">
+          Se usa una matriz diagonalmente dominante y simétrica para aplicar
+          todos los métodos, incluido Gradiente Conjugado. Puedes modificar
+          cualquier coeficiente antes de calcular.
+        </p>
+        <div id="matrizAContainer"></div>
+        <h2 class="t-h2">Vector demanda b</h2>
+        <div id="demandaAContainer"></div>
+        <h2 class="t-h2">Resultados por zona</h2>
+        <div id="resultadoAContainer"></div>
+        <h2 class="t-h2">Iteraciones</h2>
+        <div id="iteracionesAContainer"></div>
+        <h2 class="t-h2">Gráfico</h2>
+        <canvas id="graficoA" width="1000" height="420"></canvas>
+        <h2 class="t-h2">Interpretación</h2>
+        <div id="interpretacionA" class="interpretation"></div>
+        <h2 class="t-h2">Preguntas que debe responder la simulación</h2>
+        <div id="preguntasA" class="question-box"></div>
+        <h2 class="t-h2">Conclusión</h2>
+        <div id="conclusionA" class="interpretation success"></div>
+        <h2 class="t-h2">Algoritmo utilizado</h2>
+        <div id="algoritmoA" class="algorithm"></div>
+        <h2 class="t-h2">Comparación entre métodos</h2>
+<div id="comparacionMetodosA" class="interpretation"></div>
+
+<h2 class="t-h2">Validación numérica</h2>
+<div id="validacionA" class="resumen-metodo"></div>
+
+<h2 class="t-h2">Análisis crítico del método</h2>
+<div id="analisisMetodoA" class="interpretation"></div>
+      </section>
+    </main>
+    <footer>Escenario A | Maritza Zarate Paco</footer>
+    <script src="../js/graficos.js"></script>
+    <script src="../js/escenarioAB.js"></script>
+  </body>
+</html>

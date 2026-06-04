@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Escenario E: Raíces de Ecuaciones | Métodos Numéricos</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/css/coreui.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../escenario_e/style.css">
+</head>
+
+<body>
+
+  <!-- ================================================================ -->
+  <!-- HEADER HERO -->
+  <!-- ================================================================ -->
+  <header class="hero-header text-white text-center py-5">
+    <div class="container">
+      <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fs-6">
+        <i class="fas fa-calculator me-2"></i>Escenario F Activo
+      </span>
+      <h1 class="display-4 fw-bold mb-3">Rumores de desabastecimiento y pánico en la red de distribución</h1>
+      <p class="lead opacity-90 fs-5">¿Cómo un simple rumor de WhatsApp puede dejar sin alimentos a toda una ciudad?</p>
+    </div>
+  </header>
+
+  <!-- ================================================================ -->
+  <!-- NAVBAR -->
+  <!-- ================================================================ -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="../index.html">
+        <i class="fas fa-arrow-left me-2"></i>Volver al Inicio
+      </a>
+      <button class="navbar-toggler" type="button" data-coreui-toggle="collapse" data-coreui-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item"><a class="nav-link"
+              href="../proyecto_metodos_AB_paginas/escenarios/escenario-a.html">Esc. A</a></li>
+          <li class="nav-item"><a class="nav-link"
+              href="../proyecto_metodos_AB_paginas/escenarios/escenario-b.html">Esc. B</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_c/index.html">Esc. C</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_d/index.html">Esc. D</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_e/index.html">Esc. E</a></li>
+          <li class="nav-item"><a class="nav-link active" href="../escenario_f/index.html">Esc. F</a></li>
+          <li class="nav-item"><a class="nav-link" href="../escenario_g/index.html">Esc. G</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+    <div class="container mt-5">
+        <!-- La Historia (Contexto para el usuario común) -->
+        <div class="story-box">
+            <h5>📖 El Escenario</h5>
+            <p>Imagina que circula un audio en redes sociales diciendo: <em>"Se acabó el aceite en los almacenes centrales"</em>. Aunque es falso, la gente corre a comprar. La demanda real sube solo un poco, pero el <strong>sistema de transporte y distribución</strong> (camiones, rutas, almacenes) intenta responder a este pánico. Si la red de distribución es frágil (calles bloqueadas, rutas compartidas), este pequeño empujón matemático provoca un <strong>colapso logístico total</strong>, creando la escasez real que al principio no existía.</p>
+        </div>
+
+        <!-- Panel de Control (Simplificado para el usuario) -->
+        <div class="card">
+            <div class="card-header">⚙️ Configura tu Simulación</div>
+            <div class="card-body">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">1. ¿Qué producto está bajo rumor?</label>
+                        <select class="form-select" id="producto" onchange="cargarDemandaBase()">
+                            <option value="pollo">🍗 Carne de Pollo</option>
+                            <option value="harina">🌾 Harina</option>
+                            <option value="aceite">🛢️ Aceite</option>
+                            <option value="papa">🥔 Papa</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">2. Estado de las rutas y distribución:</label>
+                        <select class="form-select" id="estadoRed" onchange="aplicarEstadoRed()">
+                            <option value="robusta">🟢 Normal: Rutas independientes y almacenes propios.</option>
+                            <option value="fragil" selected>🟡 Frágil: Zonas dependen de las mismas avenidas/rutas.</option>
+                            <option value="colapso">🔴 Caos: Bloqueos generalizados, rutas colapsadas.</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-bold">3. Nivel de Pánico (Rumor):</label>
+                        <select class="form-select" id="nivelRumor">
+                            <option value="0.05">🗣️ Rumor leve (La demanda sube 5%)</option>
+                            <option value="0.10">📢 Rumor fuerte (La demanda sube 10%)</option>
+                            <option value="0.20">🚨 Pánico total (La demanda sube 20%)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="button" class="btn btn-simular btn-lg" onclick="ejecutarSimulacion()">🔍 Simular Impacto del Rumor</button>
+                </div>
+
+                <!-- Detalles Técnicos (Ocultos por defecto, visibles para el evaluador) -->
+                <div class="mt-4">
+                    <button class="btn btn-outline-secondary btn-sm w-100" type="button" data-bs-toggle="collapse" data-bs-target="#detallesTecnicos" aria-expanded="false">
+                        ⚙️ Ver Detalles Técnicos y Matriz Matemática (Para evaluación académica)
+                    </button>
+                    <div class="collapse mt-2" id="detallesTecnicos">
+                        <div class="technical-details">
+                            <h6>Matriz de Distribución ($A$) y Vector de Demanda ($b$)</h6>
+                            <p class="small text-muted">La diagonal representa capacidad propia. Los valores fuera de la diagonal representan interdependencia logística. El sistema se resuelve mediante el <strong>Método de Gauss-Seidel</strong>.</p>
+                            <div class="row text-center mb-2">
+                                <div class="col-4"><input type="number" class="form-control form-control-sm" id="a11" value="100"><input type="number" class="form-control form-control-sm mt-1" id="a21" value="100"><input type="number" class="form-control form-control-sm mt-1" id="a31" value="100"></div>
+                                <div class="col-4"><input type="number" class="form-control form-control-sm" id="a12" value="100"><input type="number" class="form-control form-control-sm mt-1" id="a22" value="101"><input type="number" class="form-control form-control-sm mt-1" id="a32" value="100"></div>
+                                <div class="col-4"><input type="number" class="form-control form-control-sm" id="a13" value="100"><input type="number" class="form-control form-control-sm mt-1" id="a23" value="100"><input type="number" class="form-control form-control-sm mt-1" id="a33" value="101"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4"><label class="small">Demanda El Alto ($b_1$)</label><input type="number" class="form-control form-control-sm" id="b1"></div>
+                                <div class="col-4"><label class="small">Demanda Centro ($b_2$)</label><input type="number" class="form-control form-control-sm" id="b2"></div>
+                                <div class="col-4"><label class="small">Demanda Zona Sur ($b_3$)</label><input type="number" class="form-control form-control-sm" id="b3"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resultados -->
+        <div class="card" id="resultadosCard" style="display:none;">
+            <div class="card-header">📊 Resultados de la Simulación</div>
+            <div class="card-body">
+                
+                <!-- Semáforo de Crisis -->
+                <div class="alert text-center mb-4" id="semaforoCrisis">
+                    <h4 id="textoSemaforo" class="fw-bold mb-0"></h4>
+                    <p class="mb-0 small" id="subtextoSemaforo"></p>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="fw-bold">📦 Logística Requerida (Toneladas a mover)</h6>
+                        <table class="table table-bordered table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Zona</th>
+                                    <th>Sin Rumor</th>
+                                    <th>Con Pánico</th>
+                                    <th>Impacto Real</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tablaResultados"></tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <h6 class="fw-bold">📈 Visualización del Colapso</h6>
+                        <canvas id="miGrafico"></canvas>
+                    </div>
+                </div>
+
+                <!-- APARTADO: ANÁLISIS Y RESPUESTAS A LAS PREGUNTAS -->
+                <div class="preguntas-analisis" id="apartadoPreguntas" style="display:none;">
+                    <h4 class="fw-bold mb-4 text-center">📋 Análisis del Escenario - Respuestas a las Preguntas Clave</h4>
+                    <div id="respuestasPreguntas">
+                        <!-- Se llena dinámicamente con JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Explicación Sencilla de los Resultados -->
+                <div class="mt-4 p-3 bg-light rounded">
+                    <h5 class="fw-bold text-primary">💡 ¿Qué nos dicen estos números?</h5>
+                    <ul class="list-unstyled" id="listaRespuestas">
+                        <!-- Se llena con JS -->
+                    </ul>
+                </div>
+
+                <!-- Tabla de Iteraciones (Requisito Académico) -->
+                <div class="mt-4">
+                    <h6 class="fw-bold">🔬 Detalle del Cálculo Numérico (Método Gauss-Seidel)</h6>
+                    <p class="small text-muted">El sistema intenta calcular paso a paso cómo repartir los camiones. Si el sistema es inestable, el cálculo tarda mucho o falla, reflejando el colapso logístico.</p>
+                    <div style="max-height: 200px; overflow-y: auto;">
+                        <table class="table table-sm table-striped table-bordered" style="font-size: 0.8rem;">
+                            <thead class="table-dark sticky-top">
+                                <tr><th>Iteración</th><th>El Alto ($x_1$)</th><th>Centro ($x_2$)</th><th>Z. Sur ($x_3$)</th><th>Error</th></tr>
+                            </thead>
+                            <tbody id="tablaIteraciones"></tbody>
+                        </table>
+                    </div>
+                    <p id="mensajeConvergencia" class="fw-bold small mt-2"></p>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Explicación del Algoritmo (Lenguaje dual) -->
+        <div class="card">
+            <div class="card-header">🧠 ¿Cómo funciona esto por detrás?</div>
+            <div class="card-body">
+                <p><strong>Para el ciudadano:</strong> Usamos una "receta matemática" que intenta equilibrar la oferta y la demanda zona por zona. Si las zonas dependen demasiado unas de otras (mismas rutas), un pequeño cambio en los pedidos hace que la "receta" dé números imposibles (como necesitar 1000 camiones cuando solo hay 10). Eso es el colapso.</p>
+                <p><strong>Para el evaluador (Método Numérico):</strong> Se plantea el sistema $Ax = b$. Se aplica el <strong>Método Iterativo de Gauss-Seidel</strong> con un criterio de parada de $\epsilon < 10^{-6}$ o máximo 100 iteraciones. Se perturba el vector $b$ con el porcentaje de rumor ($b' = b \cdot (1 + rumor)$). Se calcula el Número de Condición empírico: $K \approx \frac{||\Delta x|| / ||x||}{||\Delta b|| / ||b||}$. Un $K$ alto o la no convergencia del método demuestran que el sistema está mal condicionado.</p>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white py-4 mt-5">
+      <div class="container text-center">
+        <p class="mb-2 fw-semibold fs-5">Módulo F: Sistemas de Ecuaciones Lineales</p>
+        <div class="d-flex justify-content-center gap-4 mb-3">
+          <a href="../index.html" class="text-white-50 text-decoration-none hover-white">
+            <i class="fas fa-home me-1"></i>Inicio
+          </a>
+          <a href="../escenario_g/index.html" class="text-white-50 text-decoration-none hover-white">
+            <i class="fas fa-arrow-right me-1"></i>Siguiente: Escenario G
+          </a>
+        </div>
+        <p class="small text-white-50 mb-0">© 2026 Métodos Numéricos • Proyecto Final</p>
+      </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- JavaScript personalizado -->
+    <script src="script.js"></script>
+</body>
+</html>

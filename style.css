@@ -1,0 +1,556 @@
+/* ====================================================================== */
+/* VARIABLES CON PALETA DEL DISEÑADOR */
+/* ====================================================================== */
+:root {
+    --primary: #d91438;
+    /* Carmesí puro (Goethe) */
+    --secondary: #a68a8a;
+    --success: #107869;
+    --danger: #ff4d4d;
+    --warning: #ff9f1c;
+    /* Naranja Cadmio vibrante */
+    --info: #6a0dad;
+    /* Púrpura de Tiro */
+    --light: #fff9f9;
+    /* Blanco con tinte rosa */
+    --dark: #2b050c;
+    /* Sombra de Alizarina */
+    --gradient-1: linear-gradient(135deg, #d91438 0%, #ff9f1c 100%);
+    --gradient-2: linear-gradient(135deg, #6a0dad 0%, #d91438 100%);
+    --gradient-3: linear-gradient(135deg, #ff9f1c 0%, #ffe600 100%);
+    --gradient-4: linear-gradient(135deg, #107869 0%, #1abc9c 100%);
+    --gradient-5: linear-gradient(135deg, #d91438 0%, #6a0dad 100%);
+    --font-main: 'Poppins', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.14);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.18);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+}
+
+/* ====================================================================== */
+/* ESTILOS BASE */
+/* ====================================================================== */
+body {
+    font-family: var(--font-main);
+    background: linear-gradient(180deg, #fff9f9 0%, #f5e6e8 100%);
+    min-height: 100vh;
+    color: #333;
+    scroll-behavior: smooth;
+}
+
+/* ====================================================================== */
+/* HEADER CON GRADIENTE ANIMADO */
+/* ====================================================================== */
+.hero-header {
+    background: var(--gradient-5);
+    position: relative;
+    overflow: hidden;
+    border-bottom: 5px solid rgba(255, 255, 255, 0.2);
+}
+
+.hero-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 20s infinite ease-in-out;
+}
+
+.hero-header::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    animation: float 15s infinite ease-in-out reverse;
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(30px, -50px) rotate(120deg);
+    }
+
+    66% {
+        transform: translate(-20px, 30px) rotate(240deg);
+    }
+}
+
+/* Contenedor del gráfico en el header */
+.chart-container-header {
+    height: 180px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: 15px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* ====================================================================== */
+/* NAVBAR */
+/* ====================================================================== */
+.navbar {
+    backdrop-filter: blur(15px);
+    background: rgba(255, 255, 255, 0.92) !important;
+    border-bottom: 2px solid rgba(217, 20, 56, 0.1);
+    z-index: 1000;
+}
+
+.navbar-brand {
+    transition: all 0.3s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.03);
+}
+
+.nav-link {
+    position: relative;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background: var(--gradient-1);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+    border-radius: 10px;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 70%;
+}
+
+.navbar-nav .nav-link.active {
+    color: var(--primary) !important;
+    font-weight: 600;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary) !important;
+}
+
+/* ====================================================================== */
+/* ANIMACIONES DE ENTRADA */
+/* ====================================================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.card,
+.scenario-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+section {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+/* ====================================================================== */
+/* ICONOS CIRCULARES */
+/* ====================================================================== */
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background: rgba(0, 0, 0, 0.04);
+}
+
+.scenario-card:hover .icon-circle {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.icon-circle:hover {
+    transform: rotate(15deg) scale(1.1);
+}
+
+/* ====================================================================== */
+/* TARJETAS DE ESCENARIOS */
+/* ====================================================================== */
+.scenario-card {
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    position: relative;
+}
+
+.scenario-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.scenario-card:active {
+    transform: translateY(-4px) scale(0.98);
+}
+
+.scenario-card.state-locked {
+    opacity: 0.95;
+    filter: none;
+}
+
+.scenario-card.state-locked:hover {
+    transform: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.scenario-card.state-active {
+    border-color: rgba(217, 20, 56, 0.18);
+}
+
+.scenario-card .card-body,
+.scenario-card .card-footer {
+    background: transparent;
+    position: relative;
+    z-index: 1;
+}
+
+/* Checkmark de "Completado" en tarjetas activas */
+.state-active::after {
+    content: '✓';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 30px;
+    height: 30px;
+    background: var(--success);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    z-index: 2;
+    animation: pulse 2s infinite;
+}
+
+/* Bordes superiores de colores para cada escenario */
+.border-top-a {
+    border-top: 5px solid var(--info) !important;
+}
+
+.border-top-b {
+    border-top: 5px solid var(--danger) !important;
+}
+
+.border-top-c {
+    border-top: 5px solid #1a1a2e !important;
+}
+
+.border-top-d {
+    border-top: 5px solid var(--success) !important;
+}
+
+.border-top-e {
+    border-top: 5px solid #dc3545 !important;
+}
+
+.border-top-f {
+    border-top: 5px solid var(--warning) !important;
+}
+
+.border-top-g {
+    border-top: 5px solid var(--primary) !important;
+}
+
+/* ====================================================================== */
+/* OBJETIVO GENERAL */
+/* ====================================================================== */
+.objetivo-bg {
+    background: var(--gradient-1);
+}
+
+/* ====================================================================== */
+/* TABLA DE MÉTODOS */
+/* ====================================================================== */
+.bg-gradient-primary {
+    background: var(--gradient-1);
+}
+
+.table thead th {
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+.table tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background-color: rgba(217, 20, 56, 0.03);
+}
+
+.table-row-hover {
+    transition: all 0.3s ease;
+}
+
+.table-row-hover:hover {
+    background-color: rgba(217, 20, 56, 0.04) !important;
+    transform: scale(1.005);
+}
+
+/* ====================================================================== */
+/* DIAGRAMA DE FLUJO (PROCESO) */
+/* ====================================================================== */
+.process-step {
+    flex: 1;
+    min-width: 150px;
+}
+
+.step-icon {
+    width: 80px;
+    height: 80px;
+    transition: all 0.3s ease;
+}
+
+.process-step:hover .step-icon {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ====================================================================== */
+/* HOVER EFFECTS */
+/* ====================================================================== */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15) !important;
+}
+
+.hover-white:hover {
+    color: #fff !important;
+    text-decoration: underline;
+    transition: all 0.3s ease;
+}
+
+/* ====================================================================== */
+/* CONTENEDOR CENTRADO */
+/* ====================================================================== */
+.container {
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* ====================================================================== */
+/* BADGES PERSONALIZADOS */
+/* ====================================================================== */
+.badge {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    padding: 0.5em 1em;
+}
+
+/* ====================================================================== */
+/* INPUTS ESTILIZADOS */
+/* ====================================================================== */
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.25rem rgba(217, 20, 56, 0.15);
+}
+
+/* ====================================================================== */
+/* BOTONES CON GRADIENTE */
+/* ====================================================================== */
+.btn-primary {
+    background: var(--gradient-1);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(217, 20, 56, 0.3);
+}
+
+/* ====================================================================== */
+/* FOOTER MEJORADO */
+/* ====================================================================== */
+footer a {
+    transition: all 0.3s ease;
+}
+
+footer a:hover {
+    color: #fff !important;
+    padding-left: 4px;
+}
+
+/* ====================================================================== */
+/* SCROLLBAR PERSONALIZADO */
+/* ====================================================================== */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #6a0dad;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #b145ff;
+}
+
+/* ====================================================================== */
+/* UTILIDADES */
+/* ====================================================================== */
+.bg-primary {
+    background: var(--gradient-1) !important;
+}
+
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.border-primary {
+    border-color: var(--primary) !important;
+}
+
+.text-decoration-none {
+    text-decoration: none !important;
+}
+
+/* ====================================================================== */
+/* RESPONSIVE */
+/* ====================================================================== */
+@media (max-width: 992px) {
+    .hero-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .chart-container-header {
+        height: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-header {
+        padding: 2rem 0 !important;
+    }
+
+    .hero-header h1 {
+        font-size: 2rem;
+    }
+
+    .hero-header .lead {
+        font-size: 1rem;
+    }
+
+    .icon-circle {
+        width: 60px;
+        height: 60px;
+    }
+
+    .icon-circle i {
+        font-size: 1.3rem;
+    }
+
+    .step-icon {
+        width: 60px;
+        height: 60px;
+    }
+
+    .step-icon i {
+        font-size: 1.3rem;
+    }
+
+    .scenario-card .card-body {
+        padding: 1.2rem !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-header h1 {
+        font-size: 1.4rem;
+    }
+
+    .chart-container-header {
+        height: 120px;
+    }
+
+    .badge {
+        font-size: 0.7rem;
+    }
+
+    .process-step {
+        min-width: 80px;
+    }
+
+    .step-icon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .step-icon i {
+        font-size: 1rem;
+    }
+}

@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escenario B</title>
+  <link rel="stylesheet" href="../css/estilos.css" />
+  <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui@5.7.1/dist/css/coreui.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../escenario_c/style.css">
+</head>
+
+<body>
+  <header class="hero-header text-white text-center py-5">
+    <div class="container">
+      <span class="badge bg-warning text-dark mb-3 px-3 py-2 rounded-pill fs-6">
+        <i class="fas fa-calculator me-2"></i>Escenario B Activo
+      </span>
+      <h1 class="display-4 fw-bold mb-3">Vaciado crítico de reservas en plantas de carburantes</h1>
+      <p class="t-p lead opacity-90 fs-5">
+        Simulación de la dinámica de reservas de combustible usando métodos numéricos para resolver ecuaciones diferenciales ordinarias.
+      </p>
+    </div>
+  </header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-primary" href="../index.html">
+        <i class="fas fa-arrow-left me-2"></i>Volver al Inicio
+      </a>
+      <button class="navbar-toggler" type="button" data-coreui-toggle="collapse" data-coreui-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-3">
+          <li class="nav-item"><a class="nav-link" href="../escenarios/escenario-a.html">Esc. A</a></li>
+          <li class="nav-item"><a class="nav-link active" href="../escenarios/escenario-b.html">Esc. B</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_c/index.html">Esc. C</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_d/index.html">Esc. D</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_e/index.html">Esc. E</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_f/index.html">Esc. F</a></li>
+          <li class="nav-item"><a class="nav-link" href="../../escenario_g/index.html">Esc. G</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+    <main>
+      <section class="card">
+        <span class="badge1">Escenario B | Ecuaciones diferenciales</span>
+        <h2 class="t-h2">Vaciado crítico de reservas en plantas de carburantes</h2>
+        <p>
+          Este módulo simula cómo baja una reserva de combustible cuando la
+          entrada diaria es limitada y el consumo aumenta. Se usa el modelo
+          <strong>R'(t)=E-cR(t)</strong>, donde R(t) es la reserva, E es la
+          entrada diaria y cR(t) representa el consumo proporcional.
+        </p>
+        <div class="method-box">
+          <h3 class="t-h3">Métodos implementados</h3>
+          <div class="tags">
+            <span>Euler</span><span>Heun</span
+            ><span>Runge-Kutta 4.º orden</span>
+          </div>
+        </div>
+        <div class="formula">
+          <strong>Modelo:</strong>
+          <p>R'(t) = E - cR(t)</p>
+          <p>R(0)=R₀</p>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="t-h2">Formulario de simulación</h2>
+        <div class="form-grid">
+          <label
+            >Reserva inicial R₀ (litros)<input
+              id="R0B"
+              type="number"
+              value="10000" /></label
+          ><label
+            >Entrada diaria E (litros/día)<input
+              id="entradaB"
+              type="number"
+              value="500" /></label
+          ><label
+            >Factor de consumo c<input
+              id="consumoB"
+              type="number"
+              value="0.08"
+              step="0.01" /></label
+          ><label
+            >Paso h (días)<input
+              id="hB"
+              type="number"
+              value="1"
+              step="0.5" /></label
+          ><label
+            >Tiempo final (días)<input
+              id="tfB"
+              type="number"
+              value="30" /></label
+          ><label
+            >Nivel crítico (litros)<input
+              id="criticoB"
+              type="number"
+              value="3000"
+          /></label>
+        </div>
+        <div class="button-row">
+          <button onclick="calcularEscenarioB()">
+            Simular Euler, Heun y RK4</button
+          ><button onclick="simularMayorConsumoB()">Aumentar consumo</button
+          ><button onclick="simularMenorEntradaB()">Reducir entrada</button
+          ><button onclick="restaurarEscenarioB()">Restaurar datos</button>
+        </div>
+      </section>
+      <section class="card">
+        <h2 class="t-h2">¿Qué significa cada dato?</h2>
+        <div class="two-col">
+          <div class="info">
+            <strong>Reserva inicial R₀</strong>
+            <p>Cantidad inicial disponible en la planta en el día 0.</p>
+          </div>
+          <div class="info">
+            <strong>Entrada diaria E</strong>
+            <p>
+              Cantidad que logra ingresar cada día. Si hay bloqueos, este valor
+              puede bajar.
+            </p>
+          </div>
+          <div class="info">
+            <strong>Factor de consumo c</strong>
+            <p>
+              Proporción de reserva que se consume diariamente según el modelo
+              cR(t).
+            </p>
+          </div>
+          <div class="info">
+            <strong>Paso h</strong>
+            <p>Tamaño del salto entre cálculos. h=1 significa día por día.</p>
+          </div>
+          <div class="info">
+            <strong>Tiempo final</strong>
+            <p>Día final hasta el que se ejecuta la simulación.</p>
+          </div>
+          <div class="info">
+            <strong>Nivel crítico</strong>
+            <p>Límite a partir del cual la reserva se considera preocupante.</p>
+          </div>
+        </div>
+      </section>
+      <section class="card">
+        <h2>Resultados</h2>
+        <div id="resultadoBContainer"></div>
+        <h2>Gráfico</h2>
+        <canvas id="graficoB" width="1000" height="420"></canvas>
+        <h2>Interpretación</h2>
+        <div id="interpretacionB" class="interpretation"></div>
+        <h2>Preguntas que debe responder la simulación</h2>
+        <div id="preguntasB" class="question-box"></div>
+        <h2>Conclusión</h2>
+        <div id="conclusionB" class="interpretation success"></div>
+        <h2>Comparación numérica de métodos</h2>
+<div id="comparacionMetodosB" class="interpretation"></div>
+
+<h2 class="t-h2">Análisis de estabilidad de la reserva</h2>
+<div id="estabilidadB" class="resumen-metodo"></div>
+        <h2 class="t-h2">Algoritmos</h2>
+        <div class="algorithm">
+          <p>
+            <strong>Euler:</strong> usa la pendiente inicial de cada intervalo.
+          </p>
+          <p>
+            <strong>Heun:</strong> calcula un predictor y luego corrige con un
+            promedio de pendientes.
+          </p>
+          <p>
+            <strong>RK4:</strong> usa cuatro pendientes intermedias y suele dar
+            una aproximación más estable.
+          </p>
+        </div>
+      </section>
+    </main>
+    <footer>Escenario B | Maritza Zarate Paco</footer>
+    <script src="../js/graficos.js"></script>
+    <script src="../js/escenarioAB.js"></script>
+  </body>
+</html>

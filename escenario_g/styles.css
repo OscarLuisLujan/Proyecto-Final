@@ -1,0 +1,163 @@
+/* Estilos generales */
+body { 
+    background-color: #f4f6f9; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    color: #333; 
+}
+
+/* Encabezado */
+.hero-section { 
+    background: linear-gradient(135deg, #6a1b9a 0%, #4a148c 100%); 
+    color: white; 
+    padding: 2.5rem 0; 
+    margin-bottom: 2rem; 
+    border-radius: 0 0 20px 20px; 
+}
+
+/* Tarjetas */
+.card { 
+    border: none; 
+    border-radius: 12px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+    margin-bottom: 1.5rem; 
+}
+
+.card-header { 
+    background-color: #fff; 
+    border-bottom: 2px solid #f0f0f0; 
+    font-weight: bold; 
+    color: #6a1b9a; 
+    border-radius: 12px 12px 0 0 !important; 
+    padding: 1rem 1.5rem; 
+}
+
+/* Caja de historia */
+.story-box { 
+    background-color: #f3e5f5; 
+    border-left: 5px solid #9c27b0; 
+    padding: 1.5rem; 
+    border-radius: 8px; 
+    margin-bottom: 1.5rem; 
+}
+
+/* Caja de ecuaciones */
+.equation-box {
+    background-color: #fff;
+    border: 2px solid #e1bee7;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    font-family: 'Courier New', monospace;
+}
+
+.equation-box p {
+    margin-bottom: 0.5rem;
+}
+
+/* Botón de simular */
+.btn-simular { 
+    background-color: #6a1b9a; 
+    color: white; 
+    font-weight: bold; 
+    padding: 12px; 
+    border: none; 
+    transition: 0.3s; 
+}
+
+.btn-simular:hover { 
+    background-color: #4a148c; 
+    color: white; 
+}
+
+/* Detalles técnicos */
+.technical-details { 
+    background-color: #f8f9fa; 
+    border: 1px dashed #ccc; 
+    padding: 1rem; 
+    border-radius: 8px; 
+    font-size: 0.9rem; 
+}
+
+/* Apartado de preguntas y análisis */
+.preguntas-analisis { 
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+    color: white; 
+    border-radius: 12px; 
+    padding: 2rem; 
+    margin-top: 2rem; 
+}
+
+.pregunta-item { 
+    background-color: rgba(255,255,255,0.95); 
+    color: #333; 
+    border-radius: 8px; 
+    padding: 1.5rem; 
+    margin-bottom: 1rem; 
+    border-left: 5px solid #667eea; 
+}
+
+.pregunta-numero { 
+    background-color: #667eea; 
+    color: white; 
+    width: 35px; 
+    height: 35px; 
+    border-radius: 50%; 
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    font-weight: bold; 
+    margin-right: 10px; 
+}
+
+.pregunta-texto { 
+    font-weight: bold; 
+    font-size: 1.1rem; 
+    margin-bottom: 0.5rem; 
+}
+
+.respuesta-texto { 
+    line-height: 1.6; 
+}
+
+.highlight-danger { 
+    color: #c62828; 
+    font-weight: bold; 
+}
+
+.highlight-success { 
+    color: #2e7d32; 
+    font-weight: bold; 
+}
+
+.highlight-warning { 
+    color: #f57f17; 
+    font-weight: bold; 
+}
+
+.highlight-info {
+    color: #1565c0;
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 1.5rem 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 1.8rem;
+    }
+    
+    .preguntas-analisis {
+        padding: 1rem;
+    }
+    
+    .pregunta-item {
+        padding: 1rem;
+    }
+    
+    .equation-box {
+        font-size: 0.9rem;
+    }
+}
