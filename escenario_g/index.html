@@ -285,6 +285,20 @@
                 <p><strong>Para el evaluador (Método Numérico):</strong> Se resuelve el sistema de EDOs no lineales acopladas usando dos métodos: <strong>Heun</strong> (predictor-corrector de 2do orden) y <strong>RK4</strong> (Runge-Kutta de 4to orden). Se comparan ambas soluciones para evaluar precisión. El sistema se analiza buscando puntos de equilibrio donde dN/dt ≈ dM/dt ≈ dD/dt ≈ 0, lo que indica estabilización del conflicto.</p>
             </div>
         </div>
+        <!-- CONCLUSIONES DINÁMICAS BASADAS EN LA SIMULACIÓN -->
+        <div class="card border-success" id="conclusionesCard" style="display:none;">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Conclusiones del Análisis</h5>
+            </div>
+            <div class="card-body">
+                <div id="contenidoConclusiones">
+                    <!-- Se llena dinámicamente con JavaScript -->
+                </div>
+            </div>
+        </div>
+
+
+
 
     </div>
     <footer class="bg-dark text-white py-4 mt-5">

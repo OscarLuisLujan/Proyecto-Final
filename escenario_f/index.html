@@ -199,6 +199,17 @@
                 <p><strong>Para el evaluador (Método Numérico):</strong> Se plantea el sistema $Ax = b$. Se aplica el <strong>Método Iterativo de Gauss-Seidel</strong> con un criterio de parada de $\epsilon < 10^{-6}$ o máximo 100 iteraciones. Se perturba el vector $b$ con el porcentaje de rumor ($b' = b \cdot (1 + rumor)$). Se calcula el Número de Condición empírico: $K \approx \frac{||\Delta x|| / ||x||}{||\Delta b|| / ||b||}$. Un $K$ alto o la no convergencia del método demuestran que el sistema está mal condicionado.</p>
             </div>
         </div>
+                <!-- CONCLUSIONES DINÁMICAS BASADAS EN LA SIMULACIÓN -->
+        <div class="card border-success" id="conclusionesCard" style="display:none;">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-check-circle me-2"></i>Conclusiones del Análisis</h5>
+            </div>
+            <div class="card-body">
+                <div id="contenidoConclusiones">
+                    <!-- Se llena dinámicamente con JavaScript -->
+                </div>
+            </div>
+        </div>
     </div>
     <footer class="bg-dark text-white py-4 mt-5">
       <div class="container text-center">

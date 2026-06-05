@@ -292,6 +292,9 @@ function ejecutarSimulacion() {
             ? `<span class="text-success">✅ El método Gauss-Seidel encontró el equilibrio en ${resBase.iteraciones.length} pasos.</span>`
             : `<span class="text-danger">⚠️ El método NO pudo encontrar un equilibrio tras 100 intentos. Esto confirma matemáticamente el colapso del sistema.</span>`;
 
+        // GENERAR CONCLUSIONES DINÁMICAS (AQUÍ ES DONDE SE DEBE LLAMAR)
+        generarConclusiones(condicion, maxVarPct, zonaMasVulnerable, rumorPct, resBase, variaciones, x, xPerturbado, regiones);
+
         document.getElementById('resultadosCard').style.display = 'block';
         graficarResultados(regiones, x, xPerturbado);
         
@@ -300,6 +303,7 @@ function ejecutarSimulacion() {
 
     } catch (error) {
         alert("El sistema colapsó matemáticamente (división por cero o valores extremos). Esto sucede en escenarios de bloqueo total. Intenta con un estado de red 'Frágil' o 'Normal'.");
+        console.error(error);
     }
 }
 
@@ -344,4 +348,44 @@ function graficarResultados(labels, xBase, xPerturbado) {
             }
         }
     });
+}
+
+// ============================================
+// FUNCIÓN: Generar Conclusiones Dinámicas
+// ============================================
+// ============================================
+// FUNCIÓN: Generar Conclusión General Única (Texto Negro)
+// ============================================
+function generarConclusiones(condicion, maxVarPct, zonaMasVulnerable, rumorPct, resBase, variaciones, x, xPerturbado, regiones) {
+    const rumorTexto = (rumorPct * 100).toFixed(0);
+    const estadoGeneral = condicion > 100 ? 'CRÍTICO' : (condicion > 20 ? 'VULNERABLE' : 'ESTABLE');
+    const colorEstado = condicion > 100 ? 'danger' : (condicion > 20 ? 'warning' : 'success');
+    
+    let html = `
+        <div class="alert bg-white border-start border-4 border-${colorEstado} text-dark mb-4 shadow-sm">
+            <h4 class="fw-bold mb-3 text-${colorEstado}">
+                <i class="fas fa-flag-checkered me-2"></i>Conclusión General del Escenario F
+            </h4>
+            <p class="mb-0" style="font-size: 1.05rem; line-height: 1.7; color: #000000; text-align: justify; text-justify: inter-word;">
+                El análisis numérico del sistema de distribución de alimentos en La Paz revela un estado <strong>${estadoGeneral}</strong> 
+                ${condicion > 100 ? 'con un número de condición extremadamente alto (' + (condicion > 1000 ? '> 1000' : condicion.toFixed(2)) + '), lo que demuestra que la red es altamente vulnerable a rumores y perturbaciones menores.' :
+                  condicion > 20 ? 'con una condición moderada (número de condición: ' + condicion.toFixed(2) + '), que requiere atención para evitar que se degrade ante crisis mayores.' :
+                  'robusto (número de condición: ' + condicion.toFixed(2) + ') que puede absorber perturbaciones sin colapsar.'}
+                La simulación demuestra que un simple aumento del <strong>${rumorTexto}%</strong> en la demanda, generado por un rumor, puede provocar un impacto máximo del <strong>${maxVarPct.toFixed(1)}%</strong> en la zona más vulnerable (${zonaMasVulnerable}), confirmando que ${condicion > 50 ? 'el sistema amplifica exponencialmente las perturbaciones' : 'el sistema absorbe razonablemente las perturbaciones'}. 
+                El <strong>Método de Gauss-Seidel</strong> ${resBase.convergio ? 
+                    'convergió exitosamente en ' + resBase.iteraciones.length + ' iteraciones, demostrando que el sistema tiene una solución matemática válida y que la red logística mantiene un equilibrio inestable.' :
+                    'NO convergió incluso después de 100 iteraciones, lo que constituye una evidencia matemática contundente de que la matriz es singular o extremadamente mal condicionada, significando que la red logística ha colapsado completamente y no existe una distribución estable posible.'
+                }
+                Este modelo explica por qué en La Paz hemos visto estantes vacíos incluso cuando hay productos disponibles en los almacenes centrales: no es necesario que haya escasez real para que se genere desabastecimiento, ya que un simple rumor puede provocar un colapso logístico si la red de distribución es frágil. 
+                El problema fundamental es la interdependencia excesiva entre zonas, donde El Alto, Centro y Zona Sur dependen de las mismas avenidas y rutas, haciendo que un bloqueo en un punto crítico afecte simultáneamente a toda la ciudad. 
+                La zona más vulnerable (${zonaMasVulnerable}) experimentó un aumento del <strong>${maxVarPct.toFixed(1)}%</strong> en la logística requerida, lo que en términos prácticos significa que necesitaría ${maxVarPct > 100 ? 'más del doble' : 'significativamente más'} de camiones, rutas y almacenes para satisfacer la demanda generada por el pánico, algo físicamente imposible en el corto plazo. 
+                Para mejorar la resiliencia del sistema, se recomienda descentralizar la logística desarrollando capacidad propia de almacenamiento en cada zona, crear rutas de distribución alternativas que no pasen por los mismos puntos críticos, implementar estrategias de comunicación transparente para evitar que pequeños rumores se conviertan en pánico generalizado, y establecer sistemas de monitoreo en tiempo real que detecten aumentos inusuales en la demanda. 
+                Este ejercicio demuestra que los métodos numéricos no son solo herramientas abstractas de cálculo, sino que pueden aplicarse para comprender y resolver problemas sociales complejos como el desabastecimiento de alimentos, proporcionando insights cuantitativos que pueden guiar la toma de decisiones estratégicas para mejorar la resiliencia del sistema de distribución.
+            </p>
+        </div>
+    `;
+    
+    // Insertar en el DOM
+    document.getElementById('contenidoConclusiones').innerHTML = html;
+    document.getElementById('conclusionesCard').style.display = 'block';
 }

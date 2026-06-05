@@ -251,6 +251,9 @@ function analizarYMostrar(resultadosHeun, resultadosRK4, params, tiempoMax) {
         </div>
     `;
     
+    // GENERAR CONCLUSIONES DINÁMICAS
+    generarConclusiones(datos, params, M_inicial, M_final, M_max, dia_M_max, N_inicial, N_final, D_inicial, D_final, D_max, M_promedio_final, M_promedio_inicial);
+    
     // Mostrar resultados
     document.getElementById('resultadosCard').style.display = 'block';
     document.getElementById('resultadosCard').scrollIntoView({ behavior: 'smooth' });
@@ -497,7 +500,7 @@ function generarRespuestas(datos, params, M_inicial, M_final, M_max, dia_M_max, 
                 <br><br>
                 <strong>🔴 Factores que intensifican el conflicto:</strong><br>
                 • <strong>Tasa de contagio alta (a = ${params.a}):</strong> Si es mayor a 0.002, los ciudadanos neutrales se unen rápidamente a las marchas al ver a otros participar<br>
-                • <strong>Pocos mediadores iniciales (D₀ = ${D0}K):</strong> Si hay menos de 50K mediadores, no hay masa crítica para contener el descontento<br>
+                • <strong>Pocos mediadores iniciales (D₀ = ${D_inicial}K):</strong> Si hay menos de 50K mediadores, no hay masa crítica para contener el descontento<br>
                 • <strong>Baja efectividad del diálogo (c = ${params.c}):</strong> Si es menor a 0.003, los mediadores no logran persuadir a los manifestantes<br>
                 • <strong>Alta reacción institucional lenta (k = ${params.k}):</strong> Si es menor a 0.1, no aparecen suficientes mediadores cuando el conflicto crece<br>
                 <br>
@@ -514,6 +517,59 @@ function generarRespuestas(datos, params, M_inicial, M_final, M_max, dia_M_max, 
     `;
     
     document.getElementById('respuestasPreguntas').innerHTML = respuestasHTML;
+}
+
+// ============================================
+// FUNCIÓN: Generar Conclusión General Única (Escenario G)
+// ============================================
+function generarConclusiones(datos, params, M_inicial, M_final, M_max, dia_M_max, N_inicial, N_final, D_inicial, D_final, D_max, M_promedio_final, M_promedio_inicial) {
+    const cambio = ((M_final - M_inicial) / M_inicial * 100).toFixed(1);
+    const estadoGeneral = M_final > M_inicial * 3 ? 'MASIFICACIÓN' : (M_final > M_inicial * 1.5 ? 'ESCALADA' : (M_final < M_inicial * 0.7 ? 'DESACTIVACIÓN' : 'ESTABILIZACIÓN'));
+    const colorEstado = M_final > M_inicial * 3 ? 'danger' : (M_final > M_inicial * 1.5 ? 'warning' : (M_final < M_inicial * 0.7 ? 'success' : 'info'));
+    const estabilizado = Math.abs(M_final - M_promedio_inicial) < M_promedio_inicial * 0.3;
+    
+    let html = `
+        <div class="alert bg-white border-start border-4 border-${colorEstado} text-dark mb-4 shadow-sm">
+            <h4 class="fw-bold mb-3 text-${colorEstado}">
+                <i class="fas fa-flag-checkered me-2"></i>Conclusión General del Escenario G
+            </h4>
+            <p class="mb-0" style="font-size: 1.05rem; line-height: 1.7; color: #000000; text-align: justify; text-justify: inter-word;">
+                El análisis numérico del modelo de dinámica social en La Paz revela un estado de <strong>${estadoGeneral}</strong> del conflicto durante el período simulado. 
+                ${M_final > M_inicial * 3 ? 
+                    'Los manifestantes aumentaron significativamente de ' + M_inicial.toFixed(0) + 'K a ' + M_final.toFixed(0) + 'K personas (un ' + cambio + '% más), alcanzando un pico máximo de ' + M_max.toFixed(0) + 'K manifestantes el día ' + dia_M_max.toFixed(0) + ', lo que demuestra que el conflicto se masificó y las estrategias de mediación no fueron suficientes para contener el descontento social.' :
+                  M_final > M_inicial * 1.5 ?
+                    'Los manifestantes aumentaron de ' + M_inicial.toFixed(0) + 'K a ' + M_final.toFixed(0) + 'K personas (un ' + cambio + '% más), alcanzando un pico de ' + M_max.toFixed(0) + 'K manifestantes el día ' + dia_M_max.toFixed(0) + ', indicando una escalada moderada donde la tensión social crece pero no alcanza niveles masivos.' :
+                  M_final < M_inicial * 0.7 ?
+                    'Los manifestantes disminuyeron de ' + M_inicial.toFixed(0) + 'K a ' + M_final.toFixed(0) + 'K personas (un ' + Math.abs(cambio) + '% menos), demostrando que las estrategias de mediación y diálogo están funcionando efectivamente para desactivar el conflicto.' :
+                    'Los manifestantes se mantienen relativamente estables alrededor de ' + M_final.toFixed(0) + 'K personas, indicando que el sistema alcanzó un punto de equilibrio donde las fuerzas de contagio social y mediación se compensan mutuamente.'
+                }
+                El modelo matemático, resuelto mediante los <strong>métodos de Heun y Runge-Kutta de cuarto orden (RK4)</strong>, demuestra que la evolución del conflicto depende críticamente de cinco parámetros: la tasa de contagio social (a = ${params.a}), la efectividad del retorno a la neutralidad (b = ${params.b}), la efectividad del diálogo (c = ${params.c}), la reacción institucional (k = ${params.k}) y el desgaste de los mediadores (r = ${params.r}). 
+                ${params.a > 0.002 ? 
+                    'La alta tasa de contagio (a = ' + params.a + ') facilita que los ciudadanos neutrales se unan rápidamente a las manifestaciones al ver a otros participar, acelerando la propagación del descontento.' :
+                    'La tasa de contagio moderada (a = ' + params.a + ') permite que el descontento se propague de manera controlada, sin generar una adhesión masiva inmediata.'
+                }
+                ${params.c < 0.003 ? 
+                    'La baja efectividad del diálogo (c = ' + params.c + ') indica que los mediadores no logran persuadir efectivamente a los manifestantes, lo que dificulta la desescalada del conflicto.' :
+                    'La efectividad del diálogo (c = ' + params.c + ') permite que los mediadores persuadan activamente a los manifestantes, contribuyendo a reducir la tensión social.'
+                }
+                ${params.b < 0.1 ? 
+                    'La baja tasa de retorno a la neutralidad (b = ' + params.b + ') significa que pocos ciudadanos convencidos por los mediadores regresan efectivamente a la calma, limitando la capacidad de desactivación del conflicto.' :
+                    'La alta tasa de retorno a la neutralidad (b = ' + params.b + ') demuestra que los mediadores logran que muchos ciudadanos regresen efectivamente a la calma, fortaleciendo la desescalada.'
+                }
+                ${D_final === 0 ? 
+                    'La ausencia total de mediadores (D₀ = 0) elimina cualquier mecanismo institucional de desescalada, haciendo que el conflicto tienda inevitablemente a la masificación hasta que casi toda la población se una a las manifestaciones.' :
+                    'Los mediadores alcanzaron un máximo de ' + D_max.toFixed(0) + 'K personas, lo que ' + (D_max > D_inicial * 2 ? 'demuestra una reacción institucional significativa ante el conflicto, aunque ' : 'proporciona ') + (M_final > M_inicial ? 'no fue suficiente para contener completamente el descontento.' : 'fue suficiente para estabilizar o reducir el conflicto.')
+                }
+                La comparación entre los métodos numéricos revela que <strong>RK4 proporciona una solución más precisa y estable</strong> que el método de Heun, especialmente cuando el sistema presenta no linealidades fuertes o cambios rápidos en las poblaciones, mientras que Heun, aunque más rápido computacionalmente, puede acumular errores significativos en simulaciones prolongadas. 
+                Este modelo demuestra que los <strong>conflictos sociales pueden analizarse cuantitativamente</strong> mediante ecuaciones diferenciales, proporcionando insights valiosos para la toma de decisiones: invertir en mediación comunitaria efectiva (aumentar b y c), fortalecer la reacción institucional rápida (aumentar k), y reducir el desgaste de los mediadores (disminuir r) son estrategias matemáticamente fundamentadas para desescalar conflictos sociales y promover la estabilidad. 
+                Finalmente, este ejercicio ilustra cómo los <strong>métodos numéricos trascienden las aplicaciones tradicionales</strong> y se convierten en herramientas poderosas para comprender fenómenos sociales complejos, permitiendo simular escenarios, evaluar estrategias y anticipar consecuencias antes de implementar políticas públicas en contextos de crisis real.
+            </p>
+        </div>
+    `;
+    
+    // Insertar en el DOM
+    document.getElementById('contenidoConclusiones').innerHTML = html;
+    document.getElementById('conclusionesCard').style.display = 'block';
 }
 
 // Inicialización
